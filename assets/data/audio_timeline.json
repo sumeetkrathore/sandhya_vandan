@@ -1,0 +1,71 @@
+{
+  "masterAudioId": "sandya_vandan_master",
+  "assetPath": "assets/audio/sandya_vandan_master.m4a",
+  "totalDurationMs": 2794188,
+  "segments": [
+    {
+      "id": "mangla_charan",
+      "title": "Mangla Charan",
+      "type": "recitation",
+      "pustakPage": 15,
+      "audioStartMs": 13000,
+      "audioEndMs": 100000
+    },
+    {
+      "id": "ustati",
+      "title": "Samadha Ashram Ji Ustati",
+      "type": "recitation",
+      "pustakPage": 16,
+      "audioStartMs": 101000,
+      "audioEndMs": 179000
+    },
+    {
+      "id": "amrit_vani",
+      "title": "Amrit Vani",
+      "type": "recitation",
+      "pustakPage": 17,
+      "audioStartMs": 192000,
+      "audioEndMs": 770000
+    },
+    {
+      "id": "aarti_roop_bhajan",
+      "title": "Aarti Sahib - Satguru Baba Roop Bhajan Sahib",
+      "type": "aarti",
+      "pustakPage": 25,
+      "audioStartMs": 998000,
+      "audioEndMs": 1236000
+    },
+    {
+      "id": "aarti_shiv_bhajan",
+      "title": "Aarti Sahib - Satguru Baba Shiv Bhajan Sahib",
+      "type": "aarti",
+      "pustakPage": 28,
+      "audioStartMs": 1251000,
+      "audioEndMs": 1438000
+    },
+    {
+      "id": "aarti_om_jai_jagdish",
+      "title": "Aarti - Om Jai Jagdish Hare",
+      "type": "aarti",
+      "pustakPage": 31,
+      "audioStartMs": 1450000,
+      "audioEndMs": 1741000
+    },
+    {
+      "id": "dhyan",
+      "title": "Dhyan / Shanti Simran",
+      "type": "meditation",
+      "pustakPage": 35,
+      "audioStartMs": 1754000,
+      "audioEndMs": 2378000
+    },
+    {
+      "id": "prarthana",
+      "title": "Prarthana",
+      "type": "prayer",
+      "pustakPage": 40,
+      "audioStartMs": 2397000,
+      "audioEndMs": 2794000
+    }
+  ]
+}

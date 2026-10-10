@@ -1,0 +1,376 @@
+# SANDYA VANDAN VERIFIED CONTENT SOURCE
+# Scope: Mangla Charan, Ustati, Prarthana, Aarti Sahib
+# Encoding: UTF-8
+# IMPORTANT: Content text is user-verified. Do not normalize, rewrite, or auto-correct.
+# Latest Sindhi correction applied: دِن (with zer) in Aarti Sahib.
+
+==================================================
+[MANGALA_CHARAN]
+==================================================
+
+[HEADING_SINDHI]
+مَنگلاچَرن
+
+[HEADING_ROMAN]
+Mangla Charan
+
+[STANZA_01_SINDHI]
+وَندن ڪرُون نِج رُوپ ھي، آتم اَکَنڊ اَنوپ
+اُپما جان ڪِي سڀ ڪري، سَرو آڌار سَرُوپ،
+
+[STANZA_01_ROMAN]
+Vandan karun nij roop he,
+Aatam akhand anoop.
+Upma jaan khe sab kare,
+Sarv aadhaar saroop.
+
+[STANZA_02_SINDHI]
+نَمو شَنڪر وِشن گرُو، سَچدانند سرُوپ
+ناشِڪ شوڪ ڪَليش سڀ، ديون گيان انُوپ،
+
+[STANZA_02_ROMAN]
+Namo Shankar Vishan Guru,
+Sachida Nand saroop.
+Naashik shok kalesh sabh,
+Devan gyaan anoop.
+
+[STANZA_03_SINDHI]
+سَتگرُو سِري هَرڀَڄن ڪي، پاد پَدم پَرڻام
+جائين ڪِرپا تي وِگهن نسي، پُورن هوون ڪام،
+
+[STANZA_03_ROMAN]
+Satguru Sri Hari Bhajan ke,
+Paad padam parnaam.
+Jaaeen kripa tay vighan nasi,
+Pooran hovun kaam.
+
+[STANZA_04_SINDHI]
+سَتگرُو روُپ ڀَڄن هي، پِرسڌ يوگِيراج
+تانڪي پَد وَندن ڪرُون، هووي سَڦل سَڀ ڪاج،
+
+[STANZA_04_ROMAN]
+Satguru Roop Bhajan he,
+Prasad Yogiraj
+Taan ke pad vandan karun,
+Hove safal sabh kaaj.
+
+[STANZA_05_SINDHI]
+ستگرُو ڪِشن ڀَڄن هي، ڪِرشن ڪَنهيا رام
+تا ڪي پَد وَندن ڪرُون، مِلي مَن تَن ڪو آرام،
+
+[STANZA_05_ROMAN]
+Satguru Krishan Bhajan he,
+Krishan Kanhaiya Ram.
+Taan ke pad vandan karun,
+Mile man tan ko aaram.
+
+[STANZA_06_SINDHI]
+سَتگرُو شِو ڀَڄن هي، شِو سرُوپ ڀَڳوان
+تا نڪي پَد وَندن ڪَرُون هووي سَڦل سَڀ ڪام،
+
+[STANZA_06_ROMAN]
+Satguru Shiv Bhajan he,
+Shiv Saroop Bhagwan.
+Taan ke pad vandan karun,
+Hove safal sab kaam.
+
+[STANZA_07_SINDHI]
+پُوجون پَد سڀ سَنتن ڪي، ڌار هِردي ۾ ڌِيان
+ڪِرپا نِڌ اُپڪاري هي، سَهايڪ ڪَرت ڪَلياڻ.
+
+[STANZA_07_ROMAN]
+Poojun pad sab santan ke,
+Dhaar hirday har dhyaan.
+Kripa nidh upkaari hei,
+Sahaayak karat kalyaan.
+
+
+==================================================
+[USTATI]
+==================================================
+
+[HEADING_SINDHI]
+اُستتي
+
+[HEADING_ROMAN]
+Samadha Ashram Ji Ustati
+
+[STANZA_01_SINDHI]
+سَتگرُو سِري هَرڀَڄن جي
+ڌَريان چَرن ڪَملن جو ڌِيان،
+
+[STANZA_01_ROMAN]
+Satguru Sri Har Bhajan jay,
+Dhariyaan charan kamalan jo dhyaan.
+
+[STANZA_02_SINDHI]
+جنهن تي ستگرُو ڪِرپا ڪَرن
+تنهن جو دُور ٿِئي اَگيان،
+
+[STANZA_02_ROMAN]
+Janhin te Satguru kirpa karan,
+Tanhinjo door thiye agyaan.
+
+[STANZA_03_SINDHI]
+نام رُوپي اَمبرت ڏيئِي
+ڪن جِيون جو ڪَلياڻ،
+
+[STANZA_03_ROMAN]
+Naam roopi amrit deiye,
+Karan jeevan jo kalyaan.
+
+[STANZA_04_SINDHI]
+سَتگرُو رُوپ ڀَڄن آ
+چِت شُڌ سرُوپ،
+
+[STANZA_04_ROMAN]
+Satguru Roop Bhajan aa,
+Chit shudh saroop.
+
+[STANZA_05_SINDHI]
+جَڳ ڪارڻ اَوتار وَرتو
+بَڻي سماڌا رُوپ،
+
+[STANZA_05_ROMAN]
+Jag kaaran avtaar varto,
+Bani Samadha roop.
+
+[STANZA_06_SINDHI]
+ٽِنهي لوڪن جا جيِو سَڀ
+ڌِيان ڌرن هِڪ رَس رُوپ،
+
+[STANZA_06_ROMAN]
+Tinhi lokan ja jeev sabh,
+Dhyaan dharan hik ras roop.
+
+[STANZA_07_SINDHI]
+هِڪ رَسنا ڇا وَرڻنن ڪَريان
+تَنهنجي مَهما آهي انُوپ،
+
+[STANZA_07_ROMAN]
+Hik rasna cha varnan kariyaan,
+Tuhinji mahima aahe anoop.
+
+[STANZA_08_SINDHI]
+سَتگرُو گوبِند ڀَڄن آ
+مَها مَنگل سرُوپ،
+
+[STANZA_08_ROMAN]
+Satguru Gobind Bhajan aa,
+Maha mangal saroop.
+
+[STANZA_09_SINDHI]
+دُک هَرتا سُک راس آ
+آتم اَکَنڊ انُوپ،
+
+[STANZA_09_ROMAN]
+Dukh harta, sukhi raas aa,
+Aatam akhand anoop.
+
+[STANZA_10_SINDHI]
+سَروَ شَڪتي ڌر سروَو آتما
+گِيان ڀَڪتي بِرهم سرُوپ،
+
+[STANZA_10_ROMAN]
+Sarv-shakti dhar, sarvo aatma,
+Gyaan bhagti Brahm saroop.
+
+[STANZA_11_SINDHI]
+بَلهار وَڃان سَتگُرن تان
+هِڪ جوت آ ڌاريا ڪيئي رُوپ.
+
+[STANZA_11_ROMAN]
+Balhaar vanjan Satguran taan,
+Hik jot aa, dhaariya kai roop.
+
+[ENDING_SINDHI]
+اُستتي سمپورڻ
+
+[ENDING_ROMAN]
+Ustati Sampooran
+
+
+==================================================
+[PRARTHANA]
+==================================================
+
+[HEADING_SINDHI]
+پرارٿنا
+
+[HEADING_ROMAN]
+Prarthana
+
+[OPENING_SINDHI]
+هري اوم..هري اوم...هري اوم
+
+[OPENING_ROMAN]
+Hari Om — Hari Om — Hari Om
+
+[GAYATRI_SINDHI]
+ڀُور ڀُوھه – سوهه - تَت- سَوِيتر
+وَريڻِيم - ڀَرگو- ديوسَيه - ڌِي مهي
+ڌِيويونھه – پَرچوديات
+
+[GAYATRI_ROMAN]
+Om Bhur Bhuvaḥ Suvaha
+Tat-savitur Vareñyaṃ
+Bhargo Devasya Dheemahi
+Dhiyo Yonaḥ Prachodayāt
+
+[PRAYER_SINDHI]
+هي پرم پِتا پَرماتما
+هَم سَڀ هئين تيري آتما
+دَيا ڪَرو جَڳت آتما
+وِشوَ سُکي هووي اور بَني ڌَرماتِما
+
+[PRAYER_ROMAN]
+Hey Param Pita Parmatma,
+Hum sab hain teri aatma.
+Daya karo Jagat Aatma,
+Vishva sukhi hove aur bane Dharmatma.
+
+[PURNAMADAH_SINDHI]
+اوم پُورڻ مَڌهـ- پُورڻ ميدَن
+پُورڻ آت - پُورڻ مُدڇَت - پُورڻ وَسِيھ
+پُورڻ مادايه - پُورڻ ميوا وِشيشتِ
+
+[PURNAMADAH_ROMAN]
+Om purnamadah purnamidam,
+purnāt purnam-udacyate.
+purnasya purnamādāya,
+purnam-eva-avashishyate.
+
+[CLOSING_SINDHI]
+هري اوم- هري اوم- هري اوم
+شانتي - شانتي-  شانتي
+
+[CLOSING_ROMAN]
+Hari Om — Hari Om — Hari Om
+Shanti — Shanti — Shanti
+
+
+==================================================
+[AARTI_SAHIB]
+==================================================
+
+[HEADING_SINDHI]
+آرتي صاحب
+
+[SUBHEADING_SINDHI]
+سَتگرو بابا رُوپ ڀَڄن صاحب
+
+[HEADING_ROMAN]
+Aarti - Satguru Baba Roop Bhajan Sahib
+
+[OPENING_SINDHI]
+جئه جئه رُوپ ڀَڄن پيارا
+سَچا سائين شِڪارپور وارا
+او بابا سَماڌن وارا،
+نِس دِن تَوهان کي ڌِيايون بابا
+پَل پَل دَرشن پايُون بابا
+سَتگُر سَماڌن وارا
+جئه جئه رُوپ ڀَڄن پيارا،
+
+[OPENING_ROMAN]
+Jai Jai Roop Bhajan Pyara,
+Sacha Sain Shikarpur Wara.
+Nis din tawhan ke dhyayun Baba,
+Pal pal darshan payun Baba.
+Satguru Samadhan Wara,
+Jai Jai Roop Bhajan Pyara.
+
+[STANZA_01_SINDHI]
+شڪارپور ۾ جَنم وٺي توهان مَندر کي ٺاهيو
+سَچا سائين مندر کي ٺاهيو
+سَتسنگ جي ته وسيلي بابا سَتسنگ جي ته وسيلي بابا
+واھ جا وَڄايا وارا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[STANZA_01_ROMAN]
+Shikarpur mein janam wathi,
+Tawhan mandir khe thahiyo.
+Sacha Sain mandir khe thahiyo,
+Sat Sang je waseele Baba.
+Wah ja wajaya wara,
+Jai Jai Roop Bhajan Pyara.
+
+[STANZA_02_SINDHI]
+ڪو نه موٽيو ڪو سُوالي سَتگُر
+دَر تَوهان جي تان خالي
+سَچا سائين سُوالي نہ خالي
+آھيو مُلڪ جا والي سَتگُر
+آھيو جَڳت جا والي پُورا گُر
+دُک ڪاٽڻ هارا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[STANZA_02_ROMAN]
+Ko na motiyo ko sawaali,
+Satgur dar tawhan je taan khaali.
+Sacha Sain sawaali na khaali,
+Aahiyo Malik ja wali Satgur.
+Dukh kaatan hara,
+Jai Jai Roop Bhajan Pyara.
+
+[STANZA_03_SINDHI]
+جيڪي اَوهان وٽ اَچن ٿا وَڃن ٿا، سَڀ سُڌري بابا
+وَڃن ٿا سَڀ سُڌري بابا
+پريم سَنڌو پَرچار ٻُڌن ٿا
+نام جو سائين ڌِيان ڌَرن ٿا آھيو ڌَرم جا رکوالا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[STANZA_03_ROMAN]
+Jeke awhan wat achan tha,
+Wanjan tha sabh sudhri Baba.
+Wanjan tha sabh sudhri Baba,
+Prem sando prachar budhan tha.
+Naam sando prachar budhan tha,
+Aahiyo Dharam ja rakhwala.
+Jai Jai Roop Bhajan Pyara.
+
+[STANZA_04_SINDHI]
+آرتي ٺاهي جوتِ جِڳائي نِوڙي نِياز ڪَريون
+سَچا سائين نِوڙي نِياز ڪَريون
+بابل کي هَر دَم ياد ڪَريون
+پريم جا ڦُول کَڻي سَڀ بابا
+نام جا گُلڙا کڻي سَڀ بابا
+ڪَريون هر دَم وَسڪارا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[STANZA_04_ROMAN]
+Aarti thahe jot jagai,
+Nivri niyaaz kariyun.
+Sacha Sain nori niyaaz kariyun,
+Prem ja phool khani sabh Baba.
+Kayun hardam waskara,
+Jai Jai Roop Bhajan Pyara.
+
+[STANZA_05_SINDHI]
+هري اَوهان جي آرتي سَتگُر تَن مَن سان ڳائي
+سَچا سائين ڪَشٽ ڇَڏيو لاھي
+سَنگت جا دُکڙا ڇَڏيو لاھي
+مَهر ڪندؤ شَل سَڀني تي بابا
+ٻاجهه ڪَندؤ ساري سَنگت تي بابا آھيو دِل جا داتارا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[STANZA_05_ROMAN]
+Hari awhan ji Aarti,
+Satgur tan man saan gaaye.
+Sacha Sain, kasht chhadiyo laahe,
+Mehr kanden shal sabhni te Baba.
+Aahiyo dil ja daatara,
+Jai Jai Roop Bhajan Pyara.
+
+[CLOSING_SINDHI]
+جئه جئه رُوپ ڀَڄن پيارا سَچا سائين شڪارپور وارا
+او بابا سماڌن وارا
+نِس دِن اَوهان کي ڌِيايون بابا
+پَل پَل دَرشن پايون بابا سَتگُر سَماڌن وارا
+جئه جئه رُوپ ڀَڄن پيارا
+
+[CLOSING_ROMAN]
+Jai Jai Roop Bhajan Pyara,
+Sacha Sain Shikarpur Wara.
+Nis din tawhan ke dhyayun Baba,
+Pal pal darshan payun Baba.
+Satguru Samadhan Wara,
+Jai Jai Roop Bhajan Pyara.
