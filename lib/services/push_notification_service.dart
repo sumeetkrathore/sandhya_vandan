@@ -285,7 +285,7 @@ class PushNotificationService {
               : 'Important announcements and updates',
           importance: Importance.max,
           priority: Priority.high,
-          icon: 'ic_notification',
+          icon: '@mipmap/ic_launcher',
           largeIcon: largeIconBitmap,
           styleInformation: styleInformation,
           actions: [
