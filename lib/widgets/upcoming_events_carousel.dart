@@ -66,7 +66,7 @@ class _UpcomingEventsCarouselState extends State<UpcomingEventsCarousel> {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
@@ -184,7 +184,7 @@ class _UpcomingEventsCarouselState extends State<UpcomingEventsCarousel> {
                         tag: 'program_image_${program.id}',
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: borderColor),
                             boxShadow: [
                               if (!isDark)
@@ -196,7 +196,7 @@ class _UpcomingEventsCarouselState extends State<UpcomingEventsCarousel> {
                             ],
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                             child: imageUrl != null
                                 ? Stack(
                                     children: [

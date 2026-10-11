@@ -49,7 +49,7 @@ class TodaySandeshCard extends ConsumerWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: cardBg,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: borderColor),
             boxShadow: [
               if (!isDark)
@@ -63,7 +63,7 @@ class TodaySandeshCard extends ConsumerWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
               onTap: currentSandesh != null
                   ? () {
                       Navigator.push(
@@ -76,7 +76,7 @@ class TodaySandeshCard extends ConsumerWidget {
                     }
                   : null,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -249,7 +249,7 @@ class TodaySandeshCard extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             InkWell(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                               onTap: () {
                                 SandeshShareDialog.show(context, sandesh);
                               },

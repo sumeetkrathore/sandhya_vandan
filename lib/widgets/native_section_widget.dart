@@ -72,7 +72,7 @@ class NativeSectionWidget extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(14.0, 20.0, 14.0, 64.0),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppTheme.cardBorder(context), width: 1),
           color: Theme.of(context).colorScheme.surface,
         ),

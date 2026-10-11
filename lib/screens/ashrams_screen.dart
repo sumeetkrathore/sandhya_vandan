@@ -290,7 +290,7 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
             margin: const EdgeInsets.only(bottom: 16.0),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         );
@@ -334,7 +334,7 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
       margin: const EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
         color: isDark ? AppTheme.elevatedBurgundy : Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isDark ? AppTheme.cardBorderDark : AppTheme.cardBorderLight,
           width: 1.0,
@@ -350,7 +350,7 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
               ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         child: Material(
           color: Colors.transparent,
           child: InkWell(

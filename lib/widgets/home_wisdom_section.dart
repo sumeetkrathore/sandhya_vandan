@@ -87,7 +87,7 @@ class HomeWisdomSection extends ConsumerWidget {
                 color: isDark
                     ? Theme.of(context).colorScheme.surface
                     : const Color(0xFFFAF7F2),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.cardBorder(context)),
                 boxShadow: [
                   if (!isDark)
@@ -101,7 +101,7 @@ class HomeWisdomSection extends ConsumerWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -119,7 +119,7 @@ class HomeWisdomSection extends ConsumerWidget {
                       // 16:9 Thumbnail with Frosted Play Icon
                       ClipRRect(
                         borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(15),
+                          top: Radius.circular(12),
                         ),
                         child: AspectRatio(
                           aspectRatio: 16 / 9,

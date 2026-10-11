@@ -282,7 +282,7 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
         margin: const EdgeInsets.only(bottom: 24.0),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppTheme.cardBorder(context)),
           boxShadow: [
             BoxShadow(

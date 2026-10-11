@@ -63,7 +63,7 @@ class AudioMiniPlayer extends ConsumerWidget {
           margin: const EdgeInsets.fromLTRB(10, 4, 10, 6),
           decoration: BoxDecoration(
             color: containerColor,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: borderColor, width: 1.2),
             boxShadow: [
               BoxShadow(
@@ -108,7 +108,7 @@ class AudioMiniPlayer extends ConsumerWidget {
         margin: const EdgeInsets.fromLTRB(10, 4, 10, 6),
         decoration: BoxDecoration(
           color: containerColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: borderColor, width: 1.2),
           boxShadow: [
             BoxShadow(
@@ -119,7 +119,7 @@ class AudioMiniPlayer extends ConsumerWidget {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           child: Stack(
             children: [
               // Bottom progress bar in radiant sacred gold gradient

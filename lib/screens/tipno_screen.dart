@@ -131,7 +131,7 @@ class TipnoScreen extends ConsumerWidget {
                   child: Card(
                     elevation: isAshram ? 3 : 1,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       side: BorderSide(
                         color: isAshram
                             ? AppTheme.primaryGold
@@ -145,7 +145,7 @@ class TipnoScreen extends ConsumerWidget {
                               : const Color(0xFFFFFDF5))
                         : Theme.of(context).colorScheme.surface,
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       onTap: isAshram
                           ? () {
                               TipnoShareDialog.show(

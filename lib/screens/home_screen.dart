@@ -568,7 +568,7 @@ class ReadingProgressCard extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: cardBg,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: borderColor),
           boxShadow: [
             if (!isDark)

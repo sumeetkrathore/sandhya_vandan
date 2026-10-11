@@ -172,7 +172,7 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                     onTap: () => _openFullscreenImage(context, imageUrl),
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppTheme.cardBorder(context)),
                         boxShadow: [
                           BoxShadow(
@@ -183,7 +183,7 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                         ],
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(12),
                         child: AspectRatio(
                           aspectRatio: 16 / 9,
                           child: Stack(
@@ -210,7 +210,7 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                                   padding: const EdgeInsets.all(6),
                                   decoration: BoxDecoration(
                                     color: Colors.black.withValues(alpha: 0.55),
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: const Icon(
                                     Icons.zoom_in_rounded,
@@ -234,7 +234,7 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                     color: isDark
                         ? const Color(0xFF24070D) // Deep Sacred Burgundy
                         : const Color(0xFFFFFDF9), // Warm Spiritual Ivory
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: AppTheme.primaryGold.withValues(
                         alpha: isDark ? 0.35 : 0.3,
