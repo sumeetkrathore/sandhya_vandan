@@ -103,6 +103,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen>
 
   @override
   void dispose() {
+    _swipeHintsTimer?.cancel();
     _hideTimer?.cancel();
     _scrollDebounce?.cancel();
     _scrollController.dispose();
@@ -129,8 +130,11 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen>
     }
   }
 
+  Timer? _swipeHintsTimer;
+
   void _hideSwipeHints() {
-    Future.delayed(const Duration(seconds: 2), () {
+    _swipeHintsTimer?.cancel();
+    _swipeHintsTimer = Timer(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() {
           _showSwipeHints = false;
@@ -331,9 +335,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen>
             final isDark = Theme.of(context).brightness == Brightness.dark;
             return Material(
               color: isDark ? const Color(0xFF2A0D12) : const Color(0xFFFAF7F2),
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(24),
-              ),
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(24),
@@ -819,7 +820,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen>
     final activeLanguage = settings.selectedLanguage;
     final audioState = ref.watch(audioProvider);
 
-    // Handle reading mode transition jumps or initial jump
     // Handle reading mode transition jumps or initial jump
     if (_lastReadingMode != settings.readingMode) {
       _needsScrollJump = true;
