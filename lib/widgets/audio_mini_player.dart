@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'marquee_text.dart';
 
-import '../services/download_service.dart';
 
 import '../providers/audio_provider.dart';
 import '../models/audio_section.dart';
@@ -29,15 +28,6 @@ class AudioMiniPlayer extends ConsumerWidget {
     final audioState = ref.watch(audioProvider);
     final audioNotifier = ref.read(audioProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bool isDownloaded =
-        ref
-            .watch(
-              isTrackDownloadedProvider(
-                audioState.currentAudioItem?.audioUrl ?? '',
-              ),
-            )
-            .value ??
-        false;
     final containerColor = isDark
         ? const Color(0xFF2D0D13)
         : const Color(0xFFFFFDF9);
@@ -47,9 +37,6 @@ class AudioMiniPlayer extends ConsumerWidget {
     final primaryTextColor = isDark
         ? AppTheme.primaryIvory
         : AppTheme.textPrimaryDark;
-    final secondaryTextColor = isDark
-        ? AppTheme.warmText
-        : AppTheme.textSecondaryDarkMuted;
 
     final bool hasActiveAudio =
         audioState.isLoaded ||
@@ -232,196 +219,57 @@ class AudioMiniPlayer extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        // Track title & subtitle
+                        // Track title (clean single-line with marquee)
                         Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (audioState.currentAudioItem != null) ...[
-                                MarqueeText(
-                                  text: audioState.currentAudioItem!.title,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Builder(
+                              builder: (context) {
+                                final String displayTitle;
+                                if (audioState.currentAudioItem != null) {
+                                  displayTitle =
+                                      audioState.currentAudioItem!.title;
+                                } else {
+                                  AudioSection currentSection = audioSections
+                                      .firstWhere(
+                                        (s) =>
+                                            s.id ==
+                                            audioState.activeAudioSectionId,
+                                        orElse: () => audioSections.first,
+                                      );
+
+                                  if (audioState.position.inSeconds > 0) {
+                                    final matchingSections = audioSections
+                                        .where(
+                                          (s) =>
+                                              s.id != 'full' &&
+                                              s.startTimestamp != null &&
+                                              audioState.position >=
+                                                  s.startTimestamp!,
+                                        )
+                                        .toList();
+
+                                    if (matchingSections.isNotEmpty) {
+                                      currentSection = matchingSections.last;
+                                    }
+                                  }
+
+                                  displayTitle = currentSection.id == 'full'
+                                      ? 'Sandhya Vandan Nem'
+                                      : currentSection.displayTitle;
+                                }
+
+                                return MarqueeText(
+                                  text: displayTitle,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.5,
                                     fontWeight: FontWeight.bold,
                                     color: primaryTextColor,
                                   ),
-                                ),
-                                const SizedBox(height: 2),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        audioState
-                                                .currentAudioItem!
-                                                .artist
-                                                .isNotEmpty
-                                            ? audioState
-                                                  .currentAudioItem!
-                                                  .artist
-                                            : 'Pooj Samadha Ashram',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: secondaryTextColor,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    if (isDownloaded) ...[
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 5,
-                                          vertical: 1,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.primaryGold
-                                              .withValues(alpha: 0.14),
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.primaryGold
-                                                .withValues(alpha: 0.35),
-                                            width: 0.7,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.check_circle_rounded,
-                                              size: 9.5,
-                                              color: isDark
-                                                  ? AppTheme.primaryGold
-                                                  : AppTheme.secondarySaffron,
-                                            ),
-                                            const SizedBox(width: 2.5),
-                                            Text(
-                                              'Offline',
-                                              style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w600,
-                                                color: isDark
-                                                    ? AppTheme.primaryGold
-                                                    : AppTheme.secondarySaffron,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ] else ...[
-                                Builder(
-                                  builder: (context) {
-                                    AudioSection currentSection = audioSections
-                                        .firstWhere(
-                                          (s) =>
-                                              s.id ==
-                                              audioState.activeAudioSectionId,
-                                          orElse: () => audioSections.first,
-                                        );
-
-                                    if (audioState.position.inSeconds > 0) {
-                                      final matchingSections = audioSections
-                                          .where(
-                                            (s) =>
-                                                s.id != 'full' &&
-                                                s.startTimestamp != null &&
-                                                audioState.position >=
-                                                    s.startTimestamp!,
-                                          )
-                                          .toList();
-
-                                      if (matchingSections.isNotEmpty) {
-                                        currentSection = matchingSections.last;
-                                      }
-                                    }
-
-                                    final displayTitle =
-                                        currentSection.id == 'full'
-                                        ? 'Sandhya Vandan Nem'
-                                        : currentSection.displayTitle;
-
-                                    return MarqueeText(
-                                      text: displayTitle,
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: primaryTextColor,
-                                      ),
-                                    );
-                                  },
-                                ),
-                                const SizedBox(height: 2),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        'Sandhya Vandan',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: secondaryTextColor,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    if (isDownloaded) ...[
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 5,
-                                          vertical: 1,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.primaryGold
-                                              .withValues(alpha: 0.14),
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
-                                          border: Border.all(
-                                            color: AppTheme.primaryGold
-                                                .withValues(alpha: 0.35),
-                                            width: 0.7,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.check_circle_rounded,
-                                              size: 9.5,
-                                              color: isDark
-                                                  ? AppTheme.primaryGold
-                                                  : AppTheme.secondarySaffron,
-                                            ),
-                                            const SizedBox(width: 2.5),
-                                            Text(
-                                              'Offline',
-                                              style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w600,
-                                                color: isDark
-                                                    ? AppTheme.primaryGold
-                                                    : AppTheme.secondarySaffron,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ],
-                            ],
+                                );
+                              },
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
