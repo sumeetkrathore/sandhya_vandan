@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,12 +25,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late Animation<double> _logoScale;
   late Animation<double> _title1Fade;
   late Animation<double> _title2Fade;
-  late Animation<double> _dividerFade;
-  late Animation<double> _taglineFade;
-  late Animation<double> _loadingFade;
-
-  int _dotCount = 1;
-  Timer? _dotsTimer;
+  late Animation<double> _footerFade;
 
   @override
   void initState() {
@@ -44,42 +38,25 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     _logoFade = CurvedAnimation(
       parent: _mainController,
-      curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      curve: const Interval(0.0, 0.45, curve: Curves.easeOut),
     );
     _logoScale = CurvedAnimation(
       parent: _mainController,
-      curve: const Interval(0.0, 0.4, curve: Curves.easeOutBack),
+      curve: const Interval(0.0, 0.45, curve: Curves.easeOutBack),
     );
 
     _title1Fade = CurvedAnimation(
       parent: _mainController,
-      curve: const Interval(0.25, 0.55, curve: Curves.easeIn),
+      curve: const Interval(0.20, 0.55, curve: Curves.easeIn),
     );
     _title2Fade = CurvedAnimation(
       parent: _mainController,
-      curve: const Interval(0.35, 0.65, curve: Curves.easeIn),
+      curve: const Interval(0.35, 0.70, curve: Curves.easeIn),
     );
-    _dividerFade = CurvedAnimation(
+    _footerFade = CurvedAnimation(
       parent: _mainController,
-      curve: const Interval(0.45, 0.75, curve: Curves.easeIn),
+      curve: const Interval(0.50, 0.85, curve: Curves.easeIn),
     );
-    _taglineFade = CurvedAnimation(
-      parent: _mainController,
-      curve: const Interval(0.55, 0.85, curve: Curves.easeIn),
-    );
-    _loadingFade = CurvedAnimation(
-      parent: _mainController,
-      curve: const Interval(0.65, 1.0, curve: Curves.easeIn),
-    );
-
-    // Dynamic Loading Dots Timer (updates dotCount every 400ms)
-    _dotsTimer = Timer.periodic(const Duration(milliseconds: 400), (timer) {
-      if (mounted) {
-        setState(() {
-          _dotCount = (_dotCount % 3) + 1;
-        });
-      }
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final disableAnimations = MediaQuery.of(context).disableAnimations;
@@ -122,7 +99,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   void dispose() {
-    _dotsTimer?.cancel();
     _mainController.dispose();
     super.dispose();
   }
@@ -156,9 +132,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final secondaryText = isDark
         ? const Color(0xFFE0BB68)
         : const Color(0xFF76534A);
-    final taglineText = isDark
-        ? const Color(0xFFE5D5C5)
-        : const Color(0xFF5C3D35);
+    final footerColor = isDark
+        ? const Color(0xFFC4828F)
+        : const Color(0xFF4A121C);
     final scaffoldBg = isDark
         ? const Color(0xFF24070D)
         : const Color(0xFFFAF7F2);
@@ -267,17 +243,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                   ),
                                   Image.asset(
                                     logoAsset,
-                                    height: 76,
+                                    height: 78,
                                     fit: BoxFit.contain,
                                     errorBuilder: (context, error, stackTrace) {
-                                      return const SizedBox(height: 76);
+                                      return const SizedBox(height: 78);
                                     },
                                   ),
                                 ],
                               ),
                             ),
 
-                            const SizedBox(height: 32),
+                            const SizedBox(height: 28),
 
                             // 2. MAIN TITLE: SANDHYA VANDAN
                             AnimatedBuilder(
@@ -302,7 +278,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
                             const SizedBox(height: 12),
 
-                            // 3. SUB TEXT: JAI SAMADHA
+                            // 3. SUB TITLE: JAI SAMADHA
                             AnimatedBuilder(
                               animation: _title2Fade,
                               builder: (context, child) => Opacity(
@@ -313,105 +289,38 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                 'Jai Samadha',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontFamily: AppTheme.currentFontFamily,
+                                  fontFamily: AppTheme.serifFontFamily,
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   letterSpacing: 2.0,
                                   color: secondaryText,
                                 ),
                               ),
                             ),
 
-                            const SizedBox(height: 24),
-
-                            // DECORATIVE DIVIDER
-                            AnimatedBuilder(
-                              animation: _dividerFade,
-                              builder: (context, child) => Opacity(
-                                opacity: _dividerFade.value,
-                                child: child!,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 1,
-                                    width: 40,
-                                    color: accentGold.withValues(alpha: 0.6),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Transform.rotate(
-                                    angle: math.pi / 4,
-                                    child: Container(
-                                      width: 6,
-                                      height: 6,
-                                      color: accentGold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Container(
-                                    height: 1,
-                                    width: 40,
-                                    color: accentGold.withValues(alpha: 0.6),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            const SizedBox(height: 24),
-
-                            // TAGLINE SUB TEXT
-                            AnimatedBuilder(
-                              animation: _taglineFade,
-                              builder: (context, child) => Opacity(
-                                opacity: _taglineFade.value,
-                                child: child!,
-                              ),
-                              child: Text(
-                                "Immerse Yourself in Nem, Satguru's Dhyan & Ustati",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.currentFontFamily,
-                                  fontSize: 16,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w400,
-                                  letterSpacing: 0.4,
-                                  height: 1.5,
-                                  color: taglineText,
-                                ),
-                              ),
-                            ),
-
                             const Spacer(flex: 4),
 
-                            // DYNAMIC DOTS INDICATOR (• / •• / •••)
+                            // 4. REFINED FOOTER (Pooj Samadha Ashram, Shikarpur)
                             AnimatedBuilder(
-                              animation: _loadingFade,
-                              builder: (context, child) {
-                                final dotsString = List.generate(
-                                  _dotCount,
-                                  (_) => '•',
-                                ).join(' ');
-                                return Opacity(
-                                  opacity: _loadingFade.value,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 24.0,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        dotsString,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 4.0,
-                                          color: accentGold,
-                                        ),
-                                      ),
-                                    ),
+                              animation: _footerFade,
+                              builder: (context, child) => Opacity(
+                                opacity: _footerFade.value,
+                                child: child!,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 24.0),
+                                child: Text(
+                                  'Pooj Samadha Ashram, Shikarpur',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.serifFontFamily,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.2,
+                                    color: footerColor,
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
                           ],
                         ),
