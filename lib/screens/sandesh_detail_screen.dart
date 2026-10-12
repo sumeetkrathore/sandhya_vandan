@@ -140,7 +140,7 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
       backgroundColor: scaffoldBg,
       appBar: AppBar(
         title: Text(
-          'Sandesh - ${DateFormat('MMM d, yyyy').format(_currentSandesh.date).toUpperCase()}',
+          'Sandesh - ${DateFormat('MMM d, yyyy').format(_currentSandesh.date)}',
           style: AppTheme.appBarTitle.copyWith(
             color: AppTheme.primaryIvory,
             fontSize: 18.0,
