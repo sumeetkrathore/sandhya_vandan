@@ -68,7 +68,7 @@ Future<void> _initializeServices(SharedPreferences sharedPreferences) async {
         androidNotificationChannelId:
             'com.jaisamadha.sandyavandan.channel.audio',
         androidNotificationChannelName: 'Sandhya Vandan Audio',
-        androidNotificationIcon: 'drawable/ic_notification',
+        androidNotificationIcon: 'drawable/ic_audio_play',
         androidNotificationOngoing: false,
         androidStopForegroundOnPause: false,
       ),

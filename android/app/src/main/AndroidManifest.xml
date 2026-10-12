@@ -76,7 +76,7 @@
         <!-- Set custom audio service notification icon -->
         <meta-data
             android:name="com.ryanheise.audioservice.notification_icon"
-            android:resource="@drawable/ic_notification" />
+            android:resource="@drawable/ic_audio_play" />
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming notification message. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
