@@ -204,132 +204,95 @@ class TodaySandeshCard extends ConsumerWidget {
           ),
           const SizedBox(height: 6),
         ],
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final style = TextStyle(
-                  fontFamily: AppTheme.serifFontFamily,
-                  fontSize: 17.0,
-                  height: 1.55,
-                  color: darkBrown,
-                );
-
-                final span = TextSpan(text: sandesh.content, style: style);
-                final tp = TextPainter(
-                  text: span,
-                  maxLines: 7,
-                  textDirection: TextDirection.ltr,
-                );
-                tp.layout(maxWidth: constraints.maxWidth);
-                final isLong = tp.didExceedMaxLines;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      sandesh.content,
-                      textAlign: TextAlign.left,
-                      maxLines: 7,
-                      overflow: TextOverflow.ellipsis,
-                      style: style,
+        Text(
+          _truncateTo150(sandesh.content),
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontFamily: AppTheme.serifFontFamily,
+            fontSize: 17.0,
+            height: 1.55,
+            color: darkBrown,
+          ),
+        ),
+        if (sandesh.hasEventTitle) ...[
+          const SizedBox(height: 12),
+          Text(
+            sandesh.title.trim(),
+            style: TextStyle(
+              fontFamily: AppTheme.serifFontFamily,
+              fontSize: 14.5,
+              fontWeight: FontWeight.bold,
+              color: isDark
+                  ? const Color(0xFFF0C060)
+                  : AppTheme.secondarySaffron,
+              height: 1.3,
+            ),
+          ),
+        ],
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Dynamic Date below Sandesh text
+            Text(
+              dateString,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: darkBrown.withValues(alpha: 0.7),
+              ),
+            ),
+            // Actions below Sandesh text: Share
+            InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                SandeshShareDialog.show(context, sandesh);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 4,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(
+                      Icons.share_rounded,
+                      size: 15,
+                      color: AppTheme.secondarySaffron,
                     ),
-                    if (sandesh.hasEventTitle) ...[
-                      const SizedBox(height: 12),
-                      Text(
-                        sandesh.title.trim(),
-                        style: TextStyle(
-                          fontFamily: AppTheme.serifFontFamily,
-                          fontSize: 14.5,
-                          fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? const Color(0xFFF0C060)
-                              : AppTheme.secondarySaffron,
-                          height: 1.3,
-                        ),
+                    SizedBox(width: 4),
+                    Text(
+                      'Share',
+                      style: TextStyle(
+                        fontFamily: AppTheme.currentFontFamily,
+                        color: AppTheme.secondarySaffron,
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Dynamic Date below Sandesh text
-                        Text(
-                          dateString,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: darkBrown.withValues(alpha: 0.7),
-                          ),
-                        ),
-                        // Actions below Sandesh text: Share & Read Full
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InkWell(
-                              borderRadius: BorderRadius.circular(10),
-                              onTap: () {
-                                SandeshShareDialog.show(context, sandesh);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 4,
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    Icon(
-                                      Icons.share_rounded,
-                                      size: 15,
-                                      color: AppTheme.secondarySaffron,
-                                    ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      'Share',
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.currentFontFamily,
-                                        color: AppTheme.secondarySaffron,
-                                        fontSize: 13.5,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            if (isLong) ...[
-                              const SizedBox(width: 10),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Text(
-                                    'Read Full',
-                                    style: TextStyle(
-                                      fontFamily: AppTheme.currentFontFamily,
-                                      color: AppTheme.secondarySaffron,
-                                      fontSize: 13.5,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(width: 3),
-                                  Icon(
-                                    Icons.arrow_forward_rounded,
-                                    size: 15,
-                                    color: AppTheme.secondarySaffron,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ],
-                        ),
-                      ],
                     ),
                   ],
-                );
-              },
+                ),
+              ),
             ),
           ],
-        );
+        ),
+      ],
+    );
+  }
+
+  String _truncateTo150(String text) {
+    final trimmed = text.trim();
+    if (trimmed.length <= 150) {
+      return trimmed;
+    }
+    final sub = trimmed.substring(0, 150);
+    final lastSpace = sub.lastIndexOf(' ');
+    final clean = (lastSpace != -1 && lastSpace > 100)
+        ? sub.substring(0, lastSpace)
+        : sub;
+    return '${clean.replaceAll(RegExp(r'[,;:\s]+$'), '')}...';
   }
 
   String _getAbbrMonth(int month) {
