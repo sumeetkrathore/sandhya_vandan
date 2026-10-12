@@ -240,7 +240,7 @@ class TodaySandeshCard extends ConsumerWidget {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
-                color: darkBrown.withValues(alpha: 0.7),
+                color: darkBrown.withValues(alpha: 0.75),
               ),
             ),
             // Actions below Sandesh text: Share
@@ -256,18 +256,18 @@ class TodaySandeshCard extends ConsumerWidget {
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Icon(
                       Icons.share_rounded,
                       size: 15,
-                      color: AppTheme.secondarySaffron,
+                      color: darkBrown.withValues(alpha: 0.75),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
                       'Share',
                       style: TextStyle(
                         fontFamily: AppTheme.currentFontFamily,
-                        color: AppTheme.secondarySaffron,
+                        color: darkBrown.withValues(alpha: 0.75),
                         fontSize: 13.5,
                         fontWeight: FontWeight.w600,
                       ),
