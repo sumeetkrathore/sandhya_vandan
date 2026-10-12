@@ -1056,12 +1056,45 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
   ) {
     final isSandhyaMode = audioState.currentAudioItem == null;
     final currentItem = audioState.currentAudioItem;
+
+    // Resolve full library tracks fallback if playlist is single-item or empty
+    final allTracks = (ref.watch(allAudioTracksProvider).asData?.value ?? [])
+        .where(
+          (item) =>
+              !item.audioUrl.contains('youtu') && item.audioUrl.isNotEmpty,
+        )
+        .toList();
+    final effectivePlaylist = playlist.length > 1
+        ? playlist
+        : (allTracks.isNotEmpty ? allTracks : playlist);
+
     final currentIdx = currentItem == null
         ? -1
-        : playlist.indexWhere((it) => it.id == currentItem.id);
-    final upNextList = (currentIdx != -1 && currentIdx < playlist.length - 1)
-        ? playlist.sublist(currentIdx + 1)
-        : (currentIdx == -1 ? playlist : <AudioItem>[]);
+        : effectivePlaylist.indexWhere(
+            (it) =>
+                it.id == currentItem.id ||
+                it.audioUrl == currentItem.audioUrl,
+          );
+
+    // Build seamless circular Up Next queue in exact playback loop order
+    // Excludes the active song currently playing so there is zero redundancy
+    final List<AudioItem> upNextList;
+    if (effectivePlaylist.isEmpty || currentItem == null) {
+      upNextList = const [];
+    } else if (currentIdx != -1) {
+      upNextList = [
+        ...effectivePlaylist.sublist(currentIdx + 1),
+        ...effectivePlaylist.sublist(0, currentIdx),
+      ];
+    } else {
+      upNextList = effectivePlaylist
+          .where(
+            (it) =>
+                it.id != currentItem.id &&
+                it.audioUrl != currentItem.audioUrl,
+          )
+          .toList();
+    }
 
     return DraggableScrollableSheet(
       controller: _sheetController,
@@ -1491,7 +1524,7 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                               item: item,
                               audioState: audioState,
                               audioNotifier: audioNotifier,
-                              playlist: playlist,
+                              playlist: effectivePlaylist,
                               isDark: isDark,
                             );
                           },
