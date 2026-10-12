@@ -147,11 +147,11 @@ Gyaan bhagti Brahm saroop''',
 सर्व शक्ति धर सर्व आत्मा ज्ञान भक्ति ब्रम्ह स्वरूप''',
       ),
       NativeStanza(
-        sindhiText: '''بَلهار وَڃان سَتگُرن تان
+        sindhiText: '''ٻَلھار وَڃان سَتگُرن تان
 هِڪ جوت آ ڌاريا ڪيئي رُوپ.''',
         romanText: '''Balhaar vanjan Satguran taan
 Hik jot aa dhaariya kai roop.''',
-        hindiText: '''लिहार वन्या सतगुरून तां हिकु ज्योत आ धारिया केई रूप ।''',
+        hindiText: '''बलिहार वन्या सतगुरून तां हिकु ज्योत आ धारिया केई रूप ।''',
       ),
       NativeStanza(
         sindhiText: '''اُستتي سَمپُورڻ''',
@@ -219,7 +219,7 @@ Roop Bhajan aa taaran haar.''',
 نارد شارد سيِس نِوائن
 شيش نه پاتو اَنت نه پار
 شِو ڀَڄن آ تارڻ هار
-جوڳي جَتي سَتي سڀ ڌيائن
+يوڳي جَتي سَتي سڀ ڌيائن
 پِرڀو کي سڀ سيِس نِوائن
 ديون گُلن جي ڪَئي وَسڪار
 رُوپ ڀَڄن آ تارڻ هار''',
@@ -227,13 +227,13 @@ Roop Bhajan aa taaran haar.''',
 Narad Sharad sees nivain.
 Shesh na paato ant na paar,
 Shiv Bhajan aa taaran haar.
-Jogi jati sati sabh dhyaain,
+Yogi jati sati sabh dhyaain,
 Prabhu khe sabh sees nivain.
 Devan gulan ji kayi waskaar,
 Roop Bhajan aa taaran haar.''',
         hindiText: '''ब्रम्हा विष्णु महेश ध्याईन नारद-शारद सीस नीवाईन
 शिष्यन न पातो अंत न पार शिवभजन आ तारणहार
-जोगी जती सती सभ ध्याईन प्रभु खे सभ सीस निवाईन
+योगी जती सती सभ ध्याईन प्रभु खे सभ सीस निवाईन
 देवन गुलन जी कई वसकार रूपभजन आ तारणहार''',
       ),
       NativeStanza(
@@ -265,7 +265,7 @@ Roop Bhajan aa taaran haar.''',
 جيڪو اَچي هِڪ وار
 شِو ڀَڄن پنهنجو ڪري
 پريم ڏيئي پنهنجو پيار
-شِرڌا سان جنهن به وَرتي
+شرڌا سان جنهن به وَرتي
 رُوپ ڀَڄن جِي اوٽَ
 شِو ڀَڄن ڀَنڊارا ڀَري
 ڏِني نه ڪائي کوٽ''',
@@ -273,7 +273,7 @@ Roop Bhajan aa taaran haar.''',
 Jeko achi hik waar.
 Shiv Bhajan panhjo kare,
 Prem deyi panhjo pyaar.
-Shraddha saan janhin bhi varti,
+Shradha saan janhin bhi varti,
 Roop Bhajan ji ot.
 Shiv Bhajan bhandaara bhari,
 Dini na kaai khot.''',
@@ -537,7 +537,7 @@ Kadhan na theen maara.''',
       ),
       NativeStanza(
         stanzaNumber: 17,
-        sindhiText: '''ڪَيئي جوڳي پَرکڻ آيا
+        sindhiText: '''ڪَيئي يوڳي پَرکڻ آيا
 ڌُوڻي صاحب مان ڇيڻا اُڇلايا
 ڪِروڌ جي چِڻگ نه ڏِٺي ڀَوتار
 رُوپ ڀَڄن آ تارڻ هار
@@ -545,7 +545,7 @@ Kadhan na theen maara.''',
 ٿِيا اَنڌا رُنا زارون زار
 بَخش خَطائون آھيون توهان جا ٻار
 رُوپ ڀَڄن آ تارڻ هار''',
-        romanText: '''Kai jogi parkhan aaya,
+        romanText: '''Kai yogi parkhan aaya,
 Dhooni Sahib maan chheena uchhlaaya.
 Krodh ji ching na dithi bhotaar,
 Roop Bhajan aa taaran haar.
@@ -740,7 +740,7 @@ Shiv Bhajan aa taaran haar.''',
 رُوپ ڀَڄن آ تارڻ هار
 اَلپ ٻُڌي آهيان اَگياني
 ڏي چَرنن رج پَنهنجي سُوامي
-چَرن ڪَمل تان وڃان ٻَلهار
+چَرن ڪَمل تان وڃان ٻَلھار
 شِو ڀَڄن آ تارڻ هار''',
         romanText: '''Saari Sangat jo arz aghaai,
 Jeko Amrit Vani gaaye.
@@ -876,17 +876,20 @@ Jai Jai Roop Bhajan Pyara.''',
         sindhiText: '''جيڪي اَوهان وٽ اَچن ٿا وَڃن ٿا، سَڀ سُڌري بابا
 وَڃن ٿا سَڀ سُڌري بابا
 پريم سَنڌو پَرچار ٻُڌن ٿا
-نام جو سائين ڌِيان ڌَرن ٿا آھيو ڌَرم جا رکوالا
+نام جو سائين پرچار ڪرن ٿا
+آھيو ڌَرم جا رکوالا
 جئه جئه رُوپ ڀَڄن پيارا...''',
         romanText: '''Jeke awhan wat achan tha,
 Wanjan tha sabh sudhri Baba.
 Wanjan tha sabh sudhri Baba,
 Prem sando prachar budhan tha.
-Naam sando prachar budhan tha,
+Naam jo Sain prachar karan tha,
 Aahiyo Dharam ja rakhwala.
 Jai Jai Roop Bhajan Pyara.''',
         hindiText: '''जेके अव्हां वट अचन था (बाबा वत्रनि था सभु सुधरी ।
-प्रेम संदो परचार बुधन था, अहियो धर्म जा रखवारा ।
+प्रेम संदो परचार बुधन था,
+नाम जो साईं परचार करन था,
+अहियो धर्म जा रखवारा ।
 ॐ जय जय रूपभजन प्यारा ।''',
       ),
       NativeStanza(
@@ -985,13 +988,13 @@ Jai Jai Shiv Saroop Bhagwan...''',
         stanzaNumber: 3,
         sindhiText: '''آرتي ڳائِن سَنت سَڀيئي
 مَهِما آهي مَهان
-جوڳِي جي مَهِما آهي مَهان
+يوڳي جي مَهِما آهي مَهان
 نام جِي چادر گِیان جا ساگر
 ڳايُون سدا گُڻ گان
 جئه جئه شِو سَرُوپ ڀَڳوان...''',
         romanText: '''Aarti gaayin sant sabhei
 Mahima aahe mahaan
-Jogi ji mahima aahe mahaan
+Yogi ji mahima aahe mahaan
 Naam ji chadar gyan ja sagar
 Gaayun sada gun gaan
 Jai Jai Shiv Saroop Bhagwan...''',
@@ -1147,7 +1150,7 @@ Om jai Jagdish hare''',
         sindhiText: '''''',
         romanText: '''Vishya vikaar mitao
 paap haro deva
-shardha bhagti badhao
+shradha bhagti badhao
 santan ki sheva
 Om jai Jagdish hare''',
         hindiText: '''विषय विकार मिटाओ
