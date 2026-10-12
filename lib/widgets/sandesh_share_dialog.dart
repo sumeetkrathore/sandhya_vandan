@@ -104,7 +104,7 @@ class SandeshShareDialog {
         ShareParams(
           files: [XFile(file.path, mimeType: 'image/png')],
           text: shareText,
-          subject: sandesh.title.isNotEmpty ? sandesh.title : 'Daily Sandesh',
+          subject: sandesh.hasEventTitle ? sandesh.title : 'Daily Sandesh',
         ),
       );
     } catch (e) {
@@ -126,10 +126,13 @@ class SandeshShareDialog {
   /// Exported at high-res pixel ratio for WhatsApp/Instagram sharing
   static Widget build1x1CardCanvas(Sandesh sandesh, bool hasImage, String dateStr) {
     final String text = sandesh.content.trim();
+    final bool hasEventTitle = sandesh.hasEventTitle;
 
-    // Picture Canvas dimensions: 360 x 400 (or 360 x 460 with image)
+    // Picture Canvas dimensions: 360 x 400 (or 360 x 460 with image, +30 if hasEventTitle)
     const double canvasWidth = 360;
-    final double canvasHeight = hasImage ? 460 : 400;
+    final double canvasHeight = hasImage
+        ? (hasEventTitle ? 490 : 460)
+        : (hasEventTitle ? 430 : 400);
 
     // Master font scaling for optimal typography hierarchy
     final double dynamicFontSize = hasImage
@@ -213,6 +216,40 @@ class SandeshShareDialog {
                       ),
                     ),
                   ),
+
+                  // Event Highlight Banner (prominently shown above the quote)
+                  if (hasEventTitle) ...[
+                    const SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5.5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppTheme.secondarySaffron.withValues(alpha: 0.10),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: AppTheme.secondarySaffron.withValues(alpha: 0.28),
+                          width: 0.8,
+                        ),
+                      ),
+                      child: Text(
+                        sandesh.title.trim(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontFamily: AppTheme.serifFontFamily,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                          letterSpacing: 0.3,
+                          height: 1.25,
+                          color: AppTheme.deepBurgundy,
+                        ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 10),
 
                   // Banner Image (if present)
@@ -244,58 +281,33 @@ class SandeshShareDialog {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: AppTheme.serifFontFamily,
-                        fontSize: 52.0,
+                        fontSize: 48.0,
                         fontWeight: FontWeight.bold,
                         color: AppTheme.secondarySaffron,
                         height: 0.8,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 6),
 
-                  // Quote Content (Lifted up: top-aligned below quote mark)
+                  // Quote Content (top-aligned below quote mark)
                   Expanded(
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Sandesh Body Text
-                            Text(
-                              text,
-                              maxLines: hasImage ? 5 : 8,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: AppTheme.serifFontFamily,
-                                fontSize: dynamicFontSize,
-                                height: 1.55,
-                                letterSpacing: 0.25,
-                                color: const Color(0xFF2C1E16),
-                              ),
-                            ),
-
-                            // Sandesh Heading / Title (Shown BELOW Sandesh text in Fedra Sans Pro font)
-                            if (sandesh.title.trim().isNotEmpty) ...[
-                              const SizedBox(height: 10),
-                              Text(
-                                sandesh.title.trim(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: AppTheme.currentFontFamily,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13.5,
-                                  letterSpacing: 0.4,
-                                  color: AppTheme.secondarySaffron,
-                                ),
-                              ),
-                            ],
-                          ],
+                        child: Text(
+                          text,
+                          maxLines: hasImage ? 5 : 8,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: AppTheme.serifFontFamily,
+                            fontSize: dynamicFontSize,
+                            height: 1.55,
+                            letterSpacing: 0.25,
+                            color: const Color(0xFF2C1E16),
+                          ),
                         ),
                       ),
                     ),

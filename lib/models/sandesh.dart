@@ -17,6 +17,26 @@ class Sandesh {
     this.imageUrl,
   });
 
+  /// True if the title represents an explicit celebration, festival, or event announcement.
+  bool get hasEventTitle {
+    final trimmed = title.trim();
+    if (trimmed.isEmpty) return false;
+    final lower = trimmed.toLowerCase();
+    if (lower == 'daily sandesh' ||
+        lower == "today's sandesh" ||
+        lower == 'sandesh') {
+      return false;
+    }
+    // Filter out auto-generated generic date titles like "Sandesh | Oct, 5"
+    if (RegExp(
+      r'^sandesh\s*[\|\-:]\s*[a-zA-Z]+,?\s*\d+$',
+      caseSensitive: false,
+    ).hasMatch(trimmed)) {
+      return false;
+    }
+    return true;
+  }
+
   factory Sandesh.fromJson(Map<String, dynamic> json) {
     String? img;
     try {

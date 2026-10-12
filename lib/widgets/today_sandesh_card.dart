@@ -183,9 +183,55 @@ class TodaySandeshCard extends ConsumerWidget {
     final String dateString =
         "${_getAbbrMonth(sandesh.date.month)}, ${sandesh.date.day.toString().padLeft(2, '0')} ${sandesh.date.year}";
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (sandesh.hasEventTitle) ...[
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppTheme.secondarySaffron.withValues(
+                alpha: isDark ? 0.16 : 0.09,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: AppTheme.secondarySaffron.withValues(
+                  alpha: isDark ? 0.35 : 0.25,
+                ),
+                width: 0.9,
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.auto_awesome_rounded,
+                  size: 15,
+                  color: AppTheme.secondarySaffron,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    sandesh.title.trim(),
+                    style: TextStyle(
+                      fontFamily: AppTheme.serifFontFamily,
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.bold,
+                      color: isDark
+                          ? const Color(0xFFF0C060)
+                          : AppTheme.deepBurgundy,
+                      height: 1.25,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
         if (!hasImage) ...[
           const Align(
             alignment: Alignment.centerLeft,
