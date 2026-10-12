@@ -220,7 +220,7 @@ Roop Bhajan aa taaran haar.''',
 شيش نه پاتو اَنت نه پار
 شِو ڀَڄن آ تارڻ هار
 يوڳي جَتي سَتي سڀ ڌيائن
-پِرڀو کي سڀ سيِس نِوائن
+پِرڀو کي سڀ سيس نِوائن
 ديون گُلن جي ڪَئي وَسڪار
 رُوپ ڀَڄن آ تارڻ هار''',
         romanText: '''Brahma-Vishnu-Mahesh dhyaain,
@@ -537,7 +537,7 @@ Kadhan na theen maara.''',
       ),
       NativeStanza(
         stanzaNumber: 17,
-        sindhiText: '''ڪَيئي يوڳي پَرکڻ آيا
+        sindhiText: '''ڪيئي يوڳي پَرکڻ آيا
 ڌُوڻي صاحب مان ڇيڻا اُڇلايا
 ڪِروڌ جي چِڻگ نه ڏِٺي ڀَوتار
 رُوپ ڀَڄن آ تارڻ هار
@@ -988,13 +988,13 @@ Jai Jai Shiv Saroop Bhagwan...''',
         stanzaNumber: 3,
         sindhiText: '''آرتي ڳائِن سَنت سَڀيئي
 مَهِما آهي مَهان
-يوڳي جي مَهِما آهي مَهان
+جوڳي جي مَهِما آهي مَهان
 نام جِي چادر گِیان جا ساگر
 ڳايُون سدا گُڻ گان
 جئه جئه شِو سَرُوپ ڀَڳوان...''',
         romanText: '''Aarti gaayin sant sabhei
 Mahima aahe mahaan
-Yogi ji mahima aahe mahaan
+Jogi ji mahima aahe mahaan
 Naam ji chadar gyan ja sagar
 Gaayun sada gun gaan
 Jai Jai Shiv Saroop Bhagwan...''',
