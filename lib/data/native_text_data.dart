@@ -1226,7 +1226,7 @@ Om Shanti.''',
         hindiText: '''सर्व महंतो, संतो भगतो, सर्व देवी देवताओ का ध्यान करके बोलो... हरी ओम''',
       ),
       NativeStanza(
-        sindhiText: '''اَٺ سَٺ تیِرٿون، چارون ڌام، چاروید، ڇَهه شاستر، اَٺارهه پُراڻ، سَروَ ڌَرم گِرنٿون ڪا ڌِيان ڌَرڪي بولو… هري اوم''',
+        sindhiText: '''اَٺ سَٺ تیِرٿون، چارون ڌام، چاروید، ڇَهه شاستر، اَٺاراهن پُراڻ، سَروَ ڌَرم گِرنٿون ڪا ڌِيان ڌَرڪي بولو… هري اوم''',
         romanText: '''Athh Sath Tirathon, Chaarun Dhaam, Chaar Ved, Chhah Shaastar, Athaaranh Puraan, Sarv Dharam Granthon Ka Dhyaan Dhar Ke Bolo… Hari Om''',
         hindiText: '''अठ-सठ तीर्थो - चारोधामों, चारवेद, छः शास्त्र, आठारह पुराण
 सर्व धर्म ग्रंथो का ध्यान धरके बोलो... हरी ओम''',
