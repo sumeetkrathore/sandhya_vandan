@@ -310,56 +310,6 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                           );
                         },
                       ),
-                      // Event Highlight Header (if present)
-                      if (_currentSandesh.hasEventTitle) ...[
-                        const SizedBox(height: 14),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppTheme.secondarySaffron.withValues(
-                              alpha: isDark ? 0.16 : 0.10,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: AppTheme.secondarySaffron.withValues(
-                                alpha: isDark ? 0.35 : 0.25,
-                              ),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.auto_awesome_rounded,
-                                size: 18,
-                                color: AppTheme.secondarySaffron,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  TextUtils.preventOrphans(
-                                    _currentSandesh.title.trim(),
-                                  ),
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.serifFontFamily,
-                                    fontSize: 16.5,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1.3,
-                                    color: isDark
-                                        ? const Color(0xFFF0C060)
-                                        : AppTheme.deepBurgundy,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
                       const SizedBox(height: 14),
 
                       // Centered Opening Quote Icon
@@ -387,6 +337,27 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                               : const Color(0xFF2C2421),
                         ),
                       ),
+
+                      // Event Highlight / Special Occasion Greeting (below the sacred text)
+                      if (_currentSandesh.hasEventTitle) ...[
+                        const SizedBox(height: 18),
+                        Text(
+                          TextUtils.preventOrphans(
+                            _currentSandesh.title.trim(),
+                          ),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: AppTheme.serifFontFamily,
+                            fontSize: 16.5,
+                            fontWeight: FontWeight.bold,
+                            height: 1.35,
+                            letterSpacing: 0.3,
+                            color: isDark
+                                ? const Color(0xFFF0C060)
+                                : AppTheme.secondarySaffron,
+                          ),
+                        ),
+                      ],
 
                       if (_isLoadingFullContent) ...[
                         const SizedBox(height: 12),

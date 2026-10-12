@@ -217,39 +217,6 @@ class SandeshShareDialog {
                     ),
                   ),
 
-                  // Event Highlight Banner (prominently shown above the quote)
-                  if (hasEventTitle) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppTheme.secondarySaffron.withValues(alpha: 0.10),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: AppTheme.secondarySaffron.withValues(alpha: 0.28),
-                          width: 0.8,
-                        ),
-                      ),
-                      child: Text(
-                        sandesh.title.trim(),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontFamily: AppTheme.serifFontFamily,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13.0,
-                          letterSpacing: 0.3,
-                          height: 1.25,
-                          color: AppTheme.deepBurgundy,
-                        ),
-                      ),
-                    ),
-                  ],
                   const SizedBox(height: 10),
 
                   // Banner Image (if present)
@@ -296,18 +263,41 @@ class SandeshShareDialog {
                       alignment: Alignment.topCenter,
                       child: SingleChildScrollView(
                         physics: const NeverScrollableScrollPhysics(),
-                        child: Text(
-                          text,
-                          maxLines: hasImage ? 5 : 8,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: AppTheme.serifFontFamily,
-                            fontSize: dynamicFontSize,
-                            height: 1.55,
-                            letterSpacing: 0.25,
-                            color: const Color(0xFF2C1E16),
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              text,
+                              maxLines: hasImage ? 5 : 8,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: AppTheme.serifFontFamily,
+                                fontSize: dynamicFontSize,
+                                height: 1.55,
+                                letterSpacing: 0.25,
+                                color: const Color(0xFF2C1E16),
+                              ),
+                            ),
+                            if (hasEventTitle) ...[
+                              const SizedBox(height: 12),
+                              Text(
+                                sandesh.title.trim(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: AppTheme.serifFontFamily,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.5,
+                                  letterSpacing: 0.3,
+                                  height: 1.3,
+                                  color: AppTheme.secondarySaffron,
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
                       ),
                     ),
