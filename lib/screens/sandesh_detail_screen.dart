@@ -140,8 +140,11 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
       backgroundColor: scaffoldBg,
       appBar: AppBar(
         title: Text(
-          'Daily Sandesh',
-          style: AppTheme.appBarTitle.copyWith(color: AppTheme.primaryIvory),
+          'Sandesh - ${DateFormat('MMM d, yyyy').format(_currentSandesh.date).toUpperCase()}',
+          style: AppTheme.appBarTitle.copyWith(
+            color: AppTheme.primaryIvory,
+            fontSize: 18.0,
+          ),
         ),
         centerTitle: true,
         backgroundColor: appBarBg,
@@ -253,76 +256,22 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
-                    vertical: 18.0,
+                    vertical: 22.0,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Header Row: Date Badge
-                      Builder(
-                        builder: (context) {
-                          String dateStr;
-                          try {
-                            dateStr = DateFormat('EEEE, MMMM d, yyyy')
-                                .format(_currentSandesh.date);
-                          } catch (_) {
-                            dateStr =
-                                '${_currentSandesh.date.day}/${_currentSandesh.date.month}/${_currentSandesh.date.year}';
-                          }
-
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppTheme.primaryGold.withValues(
-                                alpha: isDark ? 0.16 : 0.1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: AppTheme.primaryGold.withValues(
-                                  alpha: 0.3,
-                                ),
-                                width: 0.8,
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today_outlined,
-                                  size: 13,
-                                  color: AppTheme.primaryGold,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  dateStr,
-                                  style: const TextStyle(
-                                    fontSize: 11.5,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.2,
-                                    color: AppTheme.primaryGold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 14),
-
                       // Centered Opening Quote Icon
                       Center(
                         child: Icon(
                           Icons.format_quote_rounded,
-                          size: 30,
+                          size: 32,
                           color: AppTheme.primaryGold.withValues(
                             alpha: isDark ? 0.6 : 0.7,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
 
                       // Message Body with comfortable spiritual reading typography
                       Text(
@@ -372,47 +321,6 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                           ),
                         ),
                       ],
-
-                      const SizedBox(height: 16),
-
-                      // Closing Spiritual Flourish
-                      Container(
-                        height: 1,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              AppTheme.primaryGold.withValues(alpha: 0.4),
-                              Colors.transparent,
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.spa_rounded,
-                              size: 18,
-                              color: AppTheme.primaryGold.withValues(
-                                alpha: 0.75,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            const Text(
-                              'Jai Samadha',
-                              style: TextStyle(
-                                fontFamily: AppTheme.serifFontFamily,
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.1,
-                                color: AppTheme.primaryGold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
