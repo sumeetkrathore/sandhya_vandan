@@ -133,8 +133,6 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
 
     final imageUrl = _currentSandesh.imageUrl;
     final hasImage = imageUrl != null && imageUrl.isNotEmpty;
-    final String dateString =
-        "${_getAbbrMonth(_currentSandesh.date.month)}, ${_currentSandesh.date.day.toString().padLeft(2, '0')} ${_currentSandesh.date.year}";
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -296,52 +294,6 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                               ),
                             ),
                           ],
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                dateString,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: darkBrown.withValues(alpha: 0.7),
-                                ),
-                              ),
-                              InkWell(
-                                borderRadius: BorderRadius.circular(10),
-                                onTap: _shareSandesh,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
-                                    vertical: 4,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      Icon(
-                                        Icons.share_rounded,
-                                        size: 15,
-                                        color: AppTheme.secondarySaffron,
-                                      ),
-                                      SizedBox(width: 4),
-                                      Text(
-                                        'Share',
-                                        style: TextStyle(
-                                          fontFamily:
-                                              AppTheme.currentFontFamily,
-                                          color: AppTheme.secondarySaffron,
-                                          fontSize: 13.5,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -353,23 +305,5 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
         ),
       ),
     );
-  }
-
-  String _getAbbrMonth(int month) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sept',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return months[month - 1];
   }
 }
