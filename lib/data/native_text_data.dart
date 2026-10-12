@@ -766,13 +766,13 @@ Shiv Bhajan aa taaran haar.''',
   ),
   NativeSection(
     id: 'PRARTHANA',
-    headingSindhi: '''پِــــرارٿــنـــــا''',
+    headingSindhi: '''پِــــرارٿــنا''',
     headingRoman: '''Prarthana''',
     headingHindi: '''प्रार्थना''',
     stanzas: [
       NativeStanza(
         sindhiText: '''هري اوم... هري اوم... هري اوم
-ڀُور ڀُوھه - سوهه تَت - سَوِيتر وَريڻِيم -ڀَرگو ديوسَيه - ڌِي مهي ڌِيويونھه – پَرچوديات''',
+ڀُور ڀُوَهه - سُوَهه تَت - سَوِيتر وَريڻِيم -ڀَرگو ديوسَيه - ڌِي مهي ڌِيويونھه – پَرچوديات''',
         romanText: '''Hari Om... Hari Om... Hari Om
 Bhur bhuwah - Swah tat - Savitur
 Varenyam - Bhargo devasya - Dhi mahi
@@ -1198,7 +1198,7 @@ Om Shanti.''',
     headingHindi: '''प्रार्थना''',
     stanzas: [
       NativeStanza(
-        sindhiText: '''اوم ڀُور ڀوھه، سوهه تَت سَويتر، وَريڻِيم ڀَرڳو دیوَسِيه ڌي مَهي ڌِيويونھه پَرچوديات''',
+        sindhiText: '''اوم ڀُور ڀُوَهه، سُوَهه تَت سَويتر، وَريڻِيم ڀَرڳو دیوَسِيه ڌي مَهي ڌِيويونھه پَرچوديات''',
         romanText: '''Om Bhoor Bhuvah, Swah Tat Savitur, Varenyam Bhargo Devasya Dheemahi Dhiyoynah Prachodayat''',
         hindiText: '''ॐ भूर्भुवः स्वः तत्स वितुर्वरेण्यं भर्गो देवस्य धीमहि। धियो यो नः प्रचोदयात् ।।''',
       ),
