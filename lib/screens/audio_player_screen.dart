@@ -1596,7 +1596,7 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                       ? Colors.white54
                       : AppTheme.textPrimaryDark.withValues(
                           alpha: 0.6,
-                        )),
+                        ),
                   hideIfDownloaded: false,
                   confirmBeforeDownload: true,
                   showText: false,
