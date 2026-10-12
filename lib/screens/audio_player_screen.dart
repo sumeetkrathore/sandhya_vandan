@@ -1054,6 +1054,20 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
     List<AudioItem> playlist,
     bool isDark,
   ) {
+    final isSandhyaMode = audioState.currentAudioItem == null;
+    final currentItem = audioState.currentAudioItem;
+    final currentIdx = currentItem == null
+        ? -1
+        : playlist.indexWhere((it) => it.id == currentItem.id);
+    final nowPlayingItem =
+        currentIdx != -1 ? playlist[currentIdx] : currentItem;
+    final upNextList = (currentIdx != -1 && currentIdx < playlist.length - 1)
+        ? playlist.sublist(currentIdx + 1)
+        : (currentIdx == -1 ? playlist : <AudioItem>[]);
+    final previousList = (currentIdx > 0)
+        ? playlist.sublist(0, currentIdx)
+        : <AudioItem>[];
+
     return DraggableScrollableSheet(
       controller: _sheetController,
       initialChildSize: 0.18,
@@ -1118,8 +1132,6 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                         // Header: Isha-style Pill Button & Track Count Badge
                         Builder(
                           builder: (context) {
-                            final isSandhyaMode =
-                                audioState.currentAudioItem == null;
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 18.0,
@@ -1179,7 +1191,7 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                                           Text(
                                             isSandhyaMode
                                                 ? 'Sandhya Vandan Parts'
-                                                : 'Up Next',
+                                                : 'Queue',
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.bold,
@@ -1207,7 +1219,9 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                                     child: Text(
                                       isSandhyaMode
                                           ? '${audioSections.length} Parts'
-                                          : '${playlist.length} Bhajans',
+                                          : (upNextList.isNotEmpty
+                                              ? '${upNextList.length} Up Next'
+                                              : '${playlist.length} Tracks'),
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
@@ -1407,24 +1421,7 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                         }, childCount: audioSections.length * 2 - 1),
                       ),
                     )
-                  // 2. If playing Bhajans: Show only bhajans queue
-                  else if (playlist.isEmpty)
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Center(
-                        child: Text(
-                          'No upcoming tracks in queue',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color:
-                                (isDark
-                                        ? Colors.white
-                                        : AppTheme.textPrimaryDark)
-                                    .withValues(alpha: 0.5),
-                          ),
-                        ),
-                      ),
-                    )
+                  // 2. If playing Bhajans: Show structured Queue (Now Playing, Up Next, Previously Played)
                   else
                     SliverPadding(
                       padding: const EdgeInsets.symmetric(
@@ -1432,177 +1429,130 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
                         vertical: 4.0,
                       ),
                       sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            if (index.isOdd) {
-                              return const SizedBox(height: 8);
-                            }
-                            final itemIndex = index ~/ 2;
-                            final item = playlist[itemIndex];
-                            final isPlayingItem =
-                                audioState.currentAudioItem?.id == item.id;
+                        delegate: SliverChildListDelegate([
+                          // Section 1: NOW PLAYING
+                          if (nowPlayingItem != null) ...[
+                            _buildQueueSectionHeader(
+                              title: 'Now Playing',
+                              icon: Icons.graphic_eq_rounded,
+                              isDark: isDark,
+                            ),
+                            const SizedBox(height: 4),
+                            _buildTrackTile(
+                              context: context,
+                              item: nowPlayingItem,
+                              isPlayingItem: true,
+                              audioState: audioState,
+                              audioNotifier: audioNotifier,
+                              playlist: playlist,
+                              isDark: isDark,
+                            ),
+                            const SizedBox(height: 14),
+                          ],
 
-                            return Material(
-                              color: isPlayingItem
-                                  ? (isDark
-                                        ? Colors.white.withValues(alpha: 0.14)
-                                        : AppTheme.primaryGold.withValues(
-                                            alpha: 0.15,
-                                          ))
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(14),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(14),
-                                onTap: () {
-                                  if (isPlayingItem) {
-                                    audioNotifier.togglePlayPause();
-                                  } else {
-                                    audioNotifier.playAudioItem(
-                                      item,
-                                      playlist: playlist,
-                                    );
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 8,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: SizedBox(
-                                          width: 42,
-                                          height: 42,
-                                          child: Stack(
-                                            fit: StackFit.expand,
-                                            children: [
-                                              if (item.coverImage.isNotEmpty)
-                                                CachedNetworkImage(
-                                                  imageUrl: item.coverImage,
-                                                  fit: BoxFit.cover,
-                                                  memCacheWidth: 90,
-                                                  memCacheHeight: 90,
-                                                  placeholder: (c, u) =>
-                                                      _defaultThumb(context),
-                                                  errorWidget: (c, u, e) =>
-                                                      _defaultThumb(context),
-                                                )
-                                              else
-                                                _defaultThumb(context),
-                                              if (isPlayingItem)
-                                                Container(
-                                                  color: Colors.black
-                                                      .withValues(alpha: 0.5),
-                                                  child: Center(
-                                                    child: SoundWaveBars(
-                                                      color:
-                                                          AppTheme.primaryGold,
-                                                      isPlaying:
-                                                          audioState.isPlaying,
-                                                      size: 18,
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              item.title,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: isPlayingItem
-                                                    ? FontWeight.bold
-                                                    : FontWeight.w600,
-                                                color: isPlayingItem
-                                                    ? (isDark
-                                                          ? Colors.white
-                                                          : AppTheme
-                                                                .primaryGold)
-                                                    : (isDark
-                                                          ? Colors.white
-                                                          : AppTheme
-                                                                .textPrimaryDark),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              item.artist.isNotEmpty
-                                                  ? item.artist
-                                                  : 'Pooj Samadha Ashram',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 11.5,
-                                                color:
-                                                    (isDark
-                                                            ? Colors.white
-                                                            : AppTheme
-                                                                  .textPrimaryDark)
-                                                        .withValues(
-                                                          alpha: 0.65,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      if (item.audioUrl.startsWith('http'))
-                                        DownloadButton(
-                                          url: item.audioUrl,
-                                          iconColor: isPlayingItem
-                                              ? (isDark
-                                                    ? Colors.white
-                                                    : AppTheme.primaryGold)
-                                              : (isDark
-                                                    ? Colors.white54
-                                                    : AppTheme.textPrimaryDark
-                                                          .withValues(
-                                                            alpha: 0.6,
-                                                          )),
-                                          hideIfDownloaded: false,
-                                          confirmBeforeDownload: true,
-                                          showText: false,
-                                        ),
-                                      const SizedBox(width: 4),
-                                      Icon(
-                                        isPlayingItem && audioState.isPlaying
-                                            ? Icons.pause_circle_filled_rounded
-                                            : Icons.play_circle_fill_rounded,
-                                        color: isPlayingItem
-                                            ? (isDark
-                                                  ? Colors.white
-                                                  : AppTheme.primaryGold)
-                                            : (isDark
-                                                  ? Colors.white38
-                                                  : AppTheme.textPrimaryDark
-                                                        .withValues(
-                                                          alpha: 0.4,
-                                                        )),
-                                        size: 26,
-                                      ),
-                                    ],
-                                  ),
+                          // Section 2: UP NEXT
+                          _buildQueueSectionHeader(
+                            title: 'Up Next',
+                            count: upNextList.length,
+                            icon: Icons.playlist_play_rounded,
+                            isDark: isDark,
+                          ),
+                          const SizedBox(height: 4),
+                          if (upNextList.isNotEmpty)
+                            ...upNextList.asMap().entries.map((entry) {
+                              final item = entry.value;
+                              final isLast =
+                                  entry.key == upNextList.length - 1;
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: isLast ? 0 : 8.0,
+                                ),
+                                child: _buildTrackTile(
+                                  context: context,
+                                  item: item,
+                                  isPlayingItem: false,
+                                  audioState: audioState,
+                                  audioNotifier: audioNotifier,
+                                  playlist: playlist,
+                                  isDark: isDark,
+                                ),
+                              );
+                            })
+                          else
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 16,
+                              ),
+                              decoration: BoxDecoration(
+                                color: (isDark ? Colors.white : Colors.black)
+                                    .withValues(alpha: 0.04),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: (isDark ? Colors.white : Colors.black)
+                                      .withValues(alpha: 0.06),
                                 ),
                               ),
-                            );
-                          },
-                          childCount: playlist.isEmpty
-                              ? 0
-                              : playlist.length * 2 - 1,
-                        ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.playlist_remove_rounded,
+                                    size: 18,
+                                    color: (isDark
+                                            ? Colors.white
+                                            : AppTheme.textPrimaryDark)
+                                        .withValues(alpha: 0.4),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'End of queue • No upcoming tracks',
+                                    style: TextStyle(
+                                      fontSize: 12.5,
+                                      fontWeight: FontWeight.w500,
+                                      color: (isDark
+                                              ? Colors.white
+                                              : AppTheme.textPrimaryDark)
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                          // Section 3: PREVIOUSLY PLAYED (if any)
+                          if (previousList.isNotEmpty) ...[
+                            const SizedBox(height: 16),
+                            _buildQueueSectionHeader(
+                              title: 'Previously Played',
+                              count: previousList.length,
+                              icon: Icons.history_rounded,
+                              isDark: isDark,
+                            ),
+                            const SizedBox(height: 4),
+                            ...previousList.asMap().entries.map((entry) {
+                              final item = entry.value;
+                              final isLast =
+                                  entry.key == previousList.length - 1;
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: isLast ? 0 : 8.0,
+                                ),
+                                child: _buildTrackTile(
+                                  context: context,
+                                  item: item,
+                                  isPlayingItem: false,
+                                  isHistory: true,
+                                  audioState: audioState,
+                                  audioNotifier: audioNotifier,
+                                  playlist: playlist,
+                                  isDark: isDark,
+                                ),
+                              );
+                            }),
+                          ],
+                        ]),
                       ),
                     ),
 
@@ -1613,6 +1563,243 @@ class _AudioPlayerScreenState extends ConsumerState<AudioPlayerScreen>
           ),
         );
       },
+    );
+  }
+
+  Widget _buildQueueSectionHeader({
+    required String title,
+    IconData? icon,
+    int? count,
+    required bool isDark,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4.0, 6.0, 4.0, 6.0),
+      child: Row(
+        children: [
+          if (icon != null) ...[
+            Icon(
+              icon,
+              size: 14,
+              color: AppTheme.primaryGold,
+            ),
+            const SizedBox(width: 6),
+          ],
+          Text(
+            title.toUpperCase(),
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.1,
+              color: isDark
+                  ? Colors.white.withValues(alpha: 0.65)
+                  : AppTheme.textPrimaryDark.withValues(alpha: 0.70),
+            ),
+          ),
+          if (count != null) ...[
+            const SizedBox(width: 6),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 1.5,
+              ),
+              decoration: BoxDecoration(
+                color: (isDark ? Colors.white : Colors.black)
+                    .withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                '$count',
+                style: TextStyle(
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.bold,
+                  color: isDark
+                      ? Colors.white70
+                      : AppTheme.textPrimaryDark.withValues(alpha: 0.75),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTrackTile({
+    required BuildContext context,
+    required AudioItem item,
+    required bool isPlayingItem,
+    bool isHistory = false,
+    required AudioState audioState,
+    required AudioProviderNotifier audioNotifier,
+    required List<AudioItem> playlist,
+    required bool isDark,
+  }) {
+    final titleColor = isPlayingItem
+        ? (isDark ? Colors.white : AppTheme.primaryGold)
+        : (isHistory
+            ? (isDark
+                ? Colors.white60
+                : AppTheme.textPrimaryDark.withValues(alpha: 0.60))
+            : (isDark ? Colors.white : AppTheme.textPrimaryDark));
+
+    final subtitleColor = isPlayingItem
+        ? (isDark
+            ? AppTheme.primaryGold.withValues(alpha: 0.9)
+            : AppTheme.primaryGold.withValues(alpha: 0.85))
+        : (isDark
+            ? Colors.white54
+            : AppTheme.textPrimaryDark.withValues(alpha: 0.55));
+
+    final tileBg = isPlayingItem
+        ? (isDark
+            ? AppTheme.primaryGold.withValues(alpha: 0.16)
+            : AppTheme.primaryGold.withValues(alpha: 0.14))
+        : Colors.transparent;
+
+    return Material(
+      color: tileBg,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: isPlayingItem
+            ? BorderSide(
+                color: AppTheme.primaryGold
+                    .withValues(alpha: isDark ? 0.40 : 0.35),
+                width: 1.2,
+              )
+            : BorderSide.none,
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: () {
+          if (isPlayingItem) {
+            audioNotifier.togglePlayPause();
+          } else {
+            audioNotifier.playAudioItem(
+              item,
+              playlist: playlist,
+            );
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 9,
+          ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  width: 44,
+                  height: 44,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      if (item.coverImage.isNotEmpty)
+                        CachedNetworkImage(
+                          imageUrl: item.coverImage,
+                          fit: BoxFit.cover,
+                          memCacheWidth: 90,
+                          memCacheHeight: 90,
+                          placeholder: (c, u) => _defaultThumb(context),
+                          errorWidget: (c, u, e) => _defaultThumb(context),
+                        )
+                      else
+                        _defaultThumb(context),
+                      if (isPlayingItem)
+                        Container(
+                          color: Colors.black.withValues(alpha: 0.45),
+                          child: Center(
+                            child: SoundWaveBars(
+                              color: AppTheme.primaryGold,
+                              isPlaying: audioState.isPlaying,
+                              size: 18,
+                            ),
+                          ),
+                        )
+                      else if (isHistory)
+                        Container(
+                          color: Colors.black.withValues(alpha: 0.25),
+                          child: const Center(
+                            child: Icon(
+                              Icons.replay_rounded,
+                              size: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      item.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight:
+                            isPlayingItem ? FontWeight.bold : FontWeight.w600,
+                        color: titleColor,
+                      ),
+                    ),
+                    const SizedBox(height: 2.5),
+                    Text(
+                      item.artist.isNotEmpty
+                          ? item.artist
+                          : 'Pooj Samadha Ashram',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        color: subtitleColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              if (item.audioUrl.startsWith('http'))
+                DownloadButton(
+                  url: item.audioUrl,
+                  iconColor: isPlayingItem
+                      ? (isDark ? Colors.white : AppTheme.primaryGold)
+                      : (isDark
+                          ? Colors.white54
+                          : AppTheme.textPrimaryDark.withValues(
+                              alpha: 0.6,
+                            )),
+                  hideIfDownloaded: false,
+                  confirmBeforeDownload: true,
+                  showText: false,
+                ),
+              const SizedBox(width: 4),
+              Icon(
+                isPlayingItem && audioState.isPlaying
+                    ? Icons.pause_circle_filled_rounded
+                    : (isPlayingItem
+                        ? Icons.play_circle_fill_rounded
+                        : (isHistory
+                            ? Icons.replay_rounded
+                            : Icons.play_circle_fill_rounded)),
+                color: isPlayingItem
+                    ? (isDark ? Colors.white : AppTheme.primaryGold)
+                    : (isDark
+                        ? (isHistory ? Colors.white24 : Colors.white38)
+                        : AppTheme.textPrimaryDark
+                            .withValues(alpha: isHistory ? 0.3 : 0.4)),
+                size: 26,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
