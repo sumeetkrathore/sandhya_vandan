@@ -315,7 +315,7 @@ class ProgramDetailsScreen extends StatelessWidget {
                           elevation: 1,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           textStyle: const TextStyle(
                             fontSize: 15,
@@ -339,7 +339,7 @@ class ProgramDetailsScreen extends StatelessWidget {
                         side: BorderSide(color: AppTheme.cardBorder(context)),
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         textStyle: const TextStyle(
                           fontSize: 14.5,
@@ -390,7 +390,7 @@ class _ProgramPostersCarouselState extends State<_ProgramPostersCarousel> {
             margin: const EdgeInsets.symmetric(horizontal: 16.0),
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.1),

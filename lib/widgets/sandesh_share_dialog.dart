@@ -151,7 +151,7 @@ class SandeshShareDialog {
       height: canvasHeight,
       decoration: BoxDecoration(
         color: const Color(0xFFFAF7F2), // Elegant Warm Ivory Canvas
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: AppTheme.secondarySaffron.withValues(alpha: 0.20),
           width: 1.0,
@@ -173,7 +173,7 @@ class SandeshShareDialog {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white, // Pure White Card Box
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: AppTheme.secondarySaffron.withValues(alpha: 0.35),
                   width: 1.2,
