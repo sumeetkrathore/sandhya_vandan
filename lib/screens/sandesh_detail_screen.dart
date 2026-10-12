@@ -261,23 +261,24 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontFamily: AppTheme.serifFontFamily,
-                              fontSize: 17.0,
-                              height: 1.55,
+                              fontSize: 18.5,
+                              height: 1.65,
+                              letterSpacing: 0.15,
                               color: darkBrown,
                             ),
                           ),
                           if (_currentSandesh.hasEventTitle) ...[
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 14),
                             Text(
                               _currentSandesh.title.trim(),
                               style: TextStyle(
                                 fontFamily: AppTheme.serifFontFamily,
-                                fontSize: 14.5,
+                                fontSize: 15.5,
                                 fontWeight: FontWeight.bold,
                                 color: isDark
                                     ? const Color(0xFFF0C060)
                                     : AppTheme.secondarySaffron,
-                                height: 1.3,
+                                height: 1.35,
                               ),
                             ),
                           ],
