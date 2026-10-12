@@ -8,7 +8,6 @@ import '../widgets/sandesh_share_dialog.dart';
 import '../models/sandesh.dart';
 import '../services/sandesh_service.dart';
 import '../theme/app_theme.dart';
-import '../utils/text_utils.dart';
 
 class SandeshDetailScreen extends StatefulWidget {
   final Sandesh sandesh;
@@ -126,15 +125,16 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
         ? AppTheme.darkBackground
         : AppTheme.backgroundIvory;
     final appBarBg = isDark ? AppTheme.elevatedBurgundy : AppTheme.deepBurgundy;
-    final shimmerBase = isDark
-        ? (Colors.grey[800] ?? Colors.black54)
-        : (Colors.grey[300] ?? Colors.grey);
-    final shimmerHighlight = isDark
-        ? (Colors.grey[700] ?? Colors.black45)
-        : (Colors.grey[100] ?? Colors.white);
+    final darkBrown = AppTheme.cardTextColor(context);
+    final cardBg = isDark
+        ? Theme.of(context).colorScheme.surface
+        : const Color(0xFFFAF7F2);
+    final borderColor = AppTheme.cardBorder(context);
 
     final imageUrl = _currentSandesh.imageUrl;
     final hasImage = imageUrl != null && imageUrl.isNotEmpty;
+    final String dateString =
+        "${_getAbbrMonth(_currentSandesh.date.month)}, ${_currentSandesh.date.day.toString().padLeft(2, '0')} ${_currentSandesh.date.year}";
 
     return Scaffold(
       backgroundColor: scaffoldBg,
@@ -166,27 +166,30 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 580),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // 1. Artwork / Image (if present)
-                if (hasImage) ...[
-                  GestureDetector(
-                    onTap: () => _openFullscreenImage(context, imageUrl),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppTheme.cardBorder(context)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 14,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: cardBg,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: borderColor),
+                boxShadow: [
+                  if (!isDark)
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (hasImage)
+                      GestureDetector(
+                        onTap: () => _openFullscreenImage(context, imageUrl),
                         child: AspectRatio(
                           aspectRatio: 16 / 9,
                           child: Stack(
@@ -199,10 +202,14 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                                 memCacheHeight: 450,
                                 placeholder: (context, url) =>
                                     Shimmer.fromColors(
-                                      baseColor: shimmerBase,
-                                      highlightColor: shimmerHighlight,
-                                      child: Container(color: Colors.white),
-                                    ),
+                                  baseColor: isDark
+                                      ? Colors.grey[800]!
+                                      : Colors.grey[300]!,
+                                  highlightColor: isDark
+                                      ? Colors.grey[700]!
+                                      : Colors.grey[100]!,
+                                  child: Container(color: Colors.white),
+                                ),
                                 errorWidget: (context, url, error) =>
                                     const SizedBox.shrink(),
                               ),
@@ -226,110 +233,143 @@ class _SandeshDetailScreenState extends State<SandeshDetailScreen> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
-
-                // 2. Sacred Wisdom Card
-                Container(
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? const Color(0xFF24070D) // Deep Sacred Burgundy
-                        : const Color(0xFFFFFDF9), // Warm Spiritual Ivory
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: AppTheme.primaryGold.withValues(
-                        alpha: isDark ? 0.35 : 0.3,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: hasImage ? 22 : 26,
                       ),
-                      width: 1.2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(
-                          alpha: isDark ? 0.4 : 0.05,
-                        ),
-                        blurRadius: 18,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 22.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Centered Opening Quote Icon
-                      Center(
-                        child: Icon(
-                          Icons.format_quote_rounded,
-                          size: 32,
-                          color: AppTheme.primaryGold.withValues(
-                            alpha: isDark ? 0.6 : 0.7,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Message Body with comfortable spiritual reading typography
-                      Text(
-                        _currentSandesh.content.trim(),
-                        style: TextStyle(
-                          fontFamily: AppTheme.serifFontFamily,
-                          fontSize: 18.0,
-                          height: 1.75,
-                          letterSpacing: 0.2,
-                          color: isDark
-                              ? const Color(0xFFEADBCE)
-                              : const Color(0xFF2C2421),
-                        ),
-                      ),
-
-                      // Event Highlight / Special Occasion Greeting (below the sacred text)
-                      if (_currentSandesh.hasEventTitle) ...[
-                        const SizedBox(height: 18),
-                        Text(
-                          TextUtils.preventOrphans(
-                            _currentSandesh.title.trim(),
-                          ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: AppTheme.serifFontFamily,
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.bold,
-                            height: 1.35,
-                            letterSpacing: 0.3,
-                            color: isDark
-                                ? const Color(0xFFF0C060)
-                                : AppTheme.secondarySaffron,
-                          ),
-                        ),
-                      ],
-
-                      if (_isLoadingFullContent) ...[
-                        const SizedBox(height: 12),
-                        const Center(
-                          child: SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: AppTheme.primaryGold,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (!hasImage) ...[
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '“',
+                                style: TextStyle(
+                                  fontFamily: AppTheme.serifFontFamily,
+                                  fontSize: 48.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppTheme.secondarySaffron,
+                                  height: 0.8,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                          ],
+                          Text(
+                            _currentSandesh.content.trim(),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: AppTheme.serifFontFamily,
+                              fontSize: 17.0,
+                              height: 1.55,
+                              color: darkBrown,
                             ),
                           ),
-                        ),
-                      ],
-                    ],
-                  ),
+                          if (_currentSandesh.hasEventTitle) ...[
+                            const SizedBox(height: 12),
+                            Text(
+                              _currentSandesh.title.trim(),
+                              style: TextStyle(
+                                fontFamily: AppTheme.serifFontFamily,
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.bold,
+                                color: isDark
+                                    ? const Color(0xFFF0C060)
+                                    : AppTheme.secondarySaffron,
+                                height: 1.3,
+                              ),
+                            ),
+                          ],
+                          if (_isLoadingFullContent) ...[
+                            const SizedBox(height: 12),
+                            const Center(
+                              child: SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: AppTheme.secondarySaffron,
+                                ),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                dateString,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                  color: darkBrown.withValues(alpha: 0.7),
+                                ),
+                              ),
+                              InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: _shareSandesh,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 4,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Icon(
+                                        Icons.share_rounded,
+                                        size: 15,
+                                        color: AppTheme.secondarySaffron,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        'Share',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              AppTheme.currentFontFamily,
+                                          color: AppTheme.secondarySaffron,
+                                          fontSize: 13.5,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-              ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  String _getAbbrMonth(int month) {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sept',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    return months[month - 1];
   }
 }
