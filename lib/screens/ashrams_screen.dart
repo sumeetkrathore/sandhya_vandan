@@ -323,6 +323,12 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
 
   Widget _buildAshramCard(Ashram ashram, {bool showCountryTag = false}) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardBg = isDark
+        ? Theme.of(context).colorScheme.surface
+        : const Color(0xFFFAF7F2);
+    final borderColor = AppTheme.cardBorder(context);
+    final darkBrown = AppTheme.cardTextColor(context);
+
     final parsedTitle =
         html_parser.parse(ashram.title).documentElement?.text ?? ashram.title;
 
@@ -330,24 +336,22 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
         ? _formatPhoneDisplay(ashram.phone!)
         : null;
 
+    final hasImage = ashram.imageUrl != null && ashram.imageUrl!.isNotEmpty;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20.0),
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.elevatedBurgundy : Colors.white,
+        color: cardBg,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: isDark ? AppTheme.cardBorderDark : AppTheme.cardBorderLight,
-          width: 1.0,
-        ),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.04),
-                  blurRadius: 14,
-                  offset: const Offset(0, 5),
-                ),
-              ],
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          if (!isDark)
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -369,50 +373,33 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                 // -----------------------------------------------------------
                 Stack(
                   children: [
-                    if (ashram.imageUrl != null)
-                      CachedNetworkImage(
-                        imageUrl: ashram.imageUrl!,
-                        height: 190,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        memCacheWidth: 600,
-                        memCacheHeight: 400,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: isDark
-                              ? const Color(0xFF38151D)
-                              : const Color(0xFFF0E5D8),
-                          highlightColor: isDark
-                              ? const Color(0xFF55222E)
-                              : const Color(0xFFFFF9F0),
-                          child: Container(
-                            height: 190,
-                            color: isDark
+                    if (hasImage)
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: CachedNetworkImage(
+                          imageUrl: ashram.imageUrl!,
+                          fit: BoxFit.cover,
+                          memCacheWidth: 600,
+                          memCacheHeight: 338,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                            baseColor: isDark
                                 ? const Color(0xFF38151D)
                                 : const Color(0xFFF0E5D8),
+                            highlightColor: isDark
+                                ? const Color(0xFF55222E)
+                                : const Color(0xFFFFF9F0),
+                            child: Container(
+                              color: isDark
+                                  ? const Color(0xFF38151D)
+                                  : const Color(0xFFF0E5D8),
+                            ),
                           ),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          height: 150,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surfaceContainerHighest,
-                          child: Icon(
-                            Icons.temple_hindu_rounded,
-                            size: 56,
-                            color: AppTheme.primaryGold.withValues(alpha: 0.4),
-                          ),
+                          errorWidget: (context, url, error) =>
+                              _buildFallbackBanner(isDark),
                         ),
                       )
                     else
-                      Container(
-                        height: 120,
-                        color: AppTheme.primaryGold.withValues(alpha: 0.08),
-                        child: Icon(
-                          Icons.temple_hindu_rounded,
-                          size: 48,
-                          color: AppTheme.primaryGold.withValues(alpha: 0.5),
-                        ),
-                      ),
+                      _buildFallbackBanner(isDark),
                     if (showCountryTag &&
                         (ashram.countryIds.contains(indiaId) ||
                             ashram.countryIds.contains(pakistanId)))
@@ -421,31 +408,45 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                         left: 12,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 5,
+                            horizontal: 10,
+                            vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: AppTheme.deepBurgundy.withValues(
-                              alpha: 0.88,
-                            ),
+                            color: AppTheme.deepBurgundy.withValues(alpha: 0.88),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: AppTheme.primaryGold.withValues(
-                                alpha: 0.5,
-                              ),
+                              color: AppTheme.primaryGold.withValues(alpha: 0.5),
                               width: 1.0,
                             ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
-                          child: Text(
-                            ashram.countryIds.contains(indiaId)
-                                ? 'India'
-                                : 'Pakistan',
-                            style: const TextStyle(
-                              color: AppTheme.primaryGold,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              letterSpacing: 0.3,
-                            ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.location_on_rounded,
+                                size: 12,
+                                color: AppTheme.primaryGold,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                ashram.countryIds.contains(indiaId)
+                                    ? 'India'
+                                    : 'Pakistan',
+                                style: const TextStyle(
+                                  color: AppTheme.primaryGold,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  letterSpacing: 0.3,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -456,7 +457,7 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                 // ASHRAM CARD CONTENT & CONTACT DETAILS
                 // -----------------------------------------------------------
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -467,36 +468,41 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                         style: TextStyle(
                           fontFamily: AppTheme.serifFontFamily,
                           fontWeight: FontWeight.bold,
-                          fontSize: 17.5,
-                          height: 1.25,
+                          fontSize: 18.0,
+                          height: 1.3,
                           color: isDark
                               ? AppTheme.primaryIvory
-                              : AppTheme.textPrimaryDark,
+                              : AppTheme.deepBurgundy,
                         ),
                       ),
 
                       // Address Display
                       if (ashram.address != null &&
                           ashram.address!.isNotEmpty) ...[
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.location_on_rounded,
-                              size: 15,
-                              color: AppTheme.primaryGold,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 2),
+                              child: Icon(
+                                Icons.location_on_outlined,
+                                size: 16,
+                                color: isDark
+                                    ? AppTheme.primaryGold
+                                    : AppTheme.secondarySaffron,
+                              ),
                             ),
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 ashram.address!,
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
+                                  fontSize: 13.5,
+                                  height: 1.4,
+                                  color: darkBrown.withValues(alpha: 0.8),
                                 ),
                               ),
                             ),
@@ -504,17 +510,19 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                         ),
                       ],
 
-                      // Phone Contact Display (Clean formatted text line)
+                      // Phone Contact Display
                       if (formattedPhone != null) ...[
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.phone_rounded,
+                            Icon(
+                              Icons.phone_outlined,
                               size: 15,
-                              color: AppTheme.primaryGold,
+                              color: isDark
+                                  ? AppTheme.primaryGold
+                                  : AppTheme.secondarySaffron,
                             ),
-                            const SizedBox(width: 6),
+                            const SizedBox(width: 8),
                             Text(
                               formattedPhone,
                               style: TextStyle(
@@ -523,7 +531,7 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                                 letterSpacing: 0.3,
                                 color: isDark
                                     ? AppTheme.primaryGold
-                                    : AppTheme.secondaryMaroon,
+                                    : AppTheme.deepBurgundy,
                               ),
                             ),
                           ],
@@ -561,18 +569,24 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                                     ),
                                   ),
                                   style: OutlinedButton.styleFrom(
-                                    foregroundColor: AppTheme.primaryGold,
+                                    foregroundColor: isDark
+                                        ? AppTheme.primaryGold
+                                        : AppTheme.deepBurgundy,
                                     side: BorderSide(
-                                      color: AppTheme.primaryGold.withValues(
-                                        alpha: 0.6,
-                                      ),
+                                      color: isDark
+                                          ? AppTheme.primaryGold.withValues(
+                                              alpha: 0.6,
+                                            )
+                                          : AppTheme.deepBurgundy.withValues(
+                                              alpha: 0.3,
+                                            ),
                                       width: 1.2,
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
+                                      vertical: 11,
                                     ),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                 ),
@@ -592,8 +606,8 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                                     }
                                   },
                                   icon: const Icon(
-                                    Icons.near_me_rounded,
-                                    size: 16,
+                                    Icons.directions_rounded,
+                                    size: 17,
                                   ),
                                   label: const Text(
                                     'Directions',
@@ -604,14 +618,18 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                                     ),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppTheme.primaryGold,
-                                    foregroundColor: AppTheme.darkBackground,
+                                    backgroundColor: isDark
+                                        ? AppTheme.primaryGold
+                                        : AppTheme.deepBurgundy,
+                                    foregroundColor: isDark
+                                        ? AppTheme.darkBackground
+                                        : AppTheme.primaryIvory,
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
+                                      vertical: 11,
                                     ),
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                   ),
                                 ),
@@ -625,6 +643,43 @@ class _AshramsScreenState extends ConsumerState<AshramsScreen> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFallbackBanner(bool isDark) {
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: isDark
+              ? AppTheme.elevatedBurgundy
+              : AppTheme.primaryGold.withValues(alpha: 0.08),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.temple_hindu_rounded,
+                size: 44,
+                color: AppTheme.primaryGold.withValues(alpha: 0.6),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'POOJ SAMADHA ASHRAM',
+                style: TextStyle(
+                  fontFamily: AppTheme.serifFontFamily,
+                  fontSize: 11,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.primaryGold.withValues(alpha: 0.8),
+                ),
+              ),
+            ],
           ),
         ),
       ),
